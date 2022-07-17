@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="SixRens.UI.MAUI.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:SixRens.UI.MAUI"
+    xmlns:页面="clr-namespace:SixRens.UI.MAUI.页面"
+    Shell.FlyoutBehavior="Disabled" >
+
+    <TabBar>
+        <ShellContent
+            Title="起课"
+            Icon="dotnet_bot.svg" 
+            ContentTemplate="{DataTemplate 页面:起课页面}"
+            Route="起课页面" />
+        <ShellContent
+            Title="占例"
+            Icon="dotnet_bot.svg" 
+            ContentTemplate="{DataTemplate 页面:占例页面}"
+            Route="占例页面" />
+        <ShellContent
+            x:Name="起始视图"
+            Title="盘面"
+            Icon="dotnet_bot.svg"
+            ContentTemplate="{DataTemplate 页面:盘面页面}" 
+            Route="盘面页面" >
+        </ShellContent>
+        <ShellContent
+            Title="插件"
+            Icon="dotnet_bot.svg" 
+            ContentTemplate="{DataTemplate 页面:插件页面}"
+            Route="插件页面" />
+        <ShellContent
+            Title="设置"
+            Icon="dotnet_bot.svg" 
+            ContentTemplate="{DataTemplate 页面:设置页面}"
+            Route="设置页面" />
+    </TabBar>
+
+</Shell>
