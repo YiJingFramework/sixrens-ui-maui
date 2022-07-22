@@ -51,6 +51,7 @@
 
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
+	  <PackageReference Include="SixRens.Core" Version="1.6.2" />
 	</ItemGroup>
 
 	<ItemGroup>
