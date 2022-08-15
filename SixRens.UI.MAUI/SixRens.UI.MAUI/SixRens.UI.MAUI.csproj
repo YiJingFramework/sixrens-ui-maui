@@ -2,7 +2,6 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net6.0-android;</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>SixRens.UI.MAUI</RootNamespace>
 		<UseMaui>true</UseMaui>
@@ -47,6 +46,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
 	  <PackageReference Include="SixRens.Core" Version="1.17.0" />
 	</ItemGroup>
 
