@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0-android;net6.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
@@ -12,11 +12,11 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 
 		<!-- Display name -->
-		<ApplicationTitle>六壬吾心</ApplicationTitle>
+		<ApplicationTitle>SixRens.UI.MAUI</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>io.github.yijingframework.sixrens.maui</ApplicationId>
-		<ApplicationIdGuid>F118F90B-27A9-46FA-A179-0D3A6DFD6660</ApplicationIdGuid>
+		<ApplicationId>com.companyname.sixrens.ui.maui</ApplicationId>
+		<ApplicationIdGuid>7D26BCB8-EA8A-4107-97B0-34C16AD51381</ApplicationIdGuid>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -28,7 +28,6 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
-		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -47,50 +46,6 @@
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
-	  <PackageReference Include="SixRens.Core" Version="1.6.2" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Compile Update="页面\插件页面.xaml.cs">
-	    <DependentUpon>插件页面.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="页面\设置页面.xaml.cs">
-	    <DependentUpon>设置页面.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="页面\占例页面.xaml.cs">
-	    <DependentUpon>占例页面.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="页面\盘面页面.xaml.cs">
-	    <DependentUpon>盘面页面.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="页面\起课页面.xaml.cs">
-	    <DependentUpon>起课页面.xaml</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiXaml Update="页面\插件页面.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="页面\盘面控件\未起盘.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="页面\设置页面.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="页面\占例页面.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="页面\起课页面.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="页面\盘面页面.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

@@ -1,11 +1,10 @@
-﻿namespace SixRens.UI.MAUI;
-
-public partial class AppShell : Shell
+﻿namespace SixRens.UI.MAUI
 {
-	public AppShell()
+    public partial class AppShell : Shell
     {
-        InitializeComponent();
-
-        this.CurrentItem = 起始视图;
+        public AppShell()
+        {
+            InitializeComponent();
+        }
     }
 }
