@@ -11,11 +11,11 @@ namespace SixRens.UI.MAUI
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
-            builder
+            _ = builder
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts => {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    _ = fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                    _ = fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
             RegisterServices(builder.Services);
@@ -40,6 +40,18 @@ namespace SixRens.UI.MAUI
 
             _ = services.AddSingleton<MainPage>();
             _ = services.AddSingleton<MainPageViewModel>();
+
+            _ = services.AddSingleton<CaseCreationPage>();
+            _ = services.AddSingleton<CaseCreationPageViewModel>();
+
+            _ = services.AddSingleton<CaseManagementPage>();
+            _ = services.AddSingleton<CaseManagementPageViewModel>();
+
+            _ = services.AddSingleton<PluginManagementPage>();
+            _ = services.AddSingleton<PluginManagementPageViewModel>();
+
+            _ = services.AddSingleton<SettingsPage>();
+            _ = services.AddSingleton<SettingsPageViewModel>();
         }
     }
 }
