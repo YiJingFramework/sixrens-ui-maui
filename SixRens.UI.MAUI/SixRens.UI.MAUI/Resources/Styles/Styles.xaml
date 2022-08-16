@@ -8,12 +8,18 @@
         <Setter Property="BackgroundColor" Value="{StaticResource White}"/>
     </Style>
 
+    <Style TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource Black}"/>
+        <Setter Property="FontFamily" Value="HongLei" />
+    </Style>
+    
     <Style TargetType="Button">
         <Setter Property="TextColor" Value="{StaticResource Black}" />
         <Setter Property="BackgroundColor" Value="{StaticResource White}" />
-        <Setter Property="BorderColor" Value="{StaticResource Black}" />
+        <Setter Property="BorderColor" Value="{StaticResource Blue}" />
         <Setter Property="BorderWidth" Value="1" />
         <Setter Property="CornerRadius" Value="0"/>
+        <Setter Property="FontFamily" Value="HongLei" />
     </Style>
     
     <Style TargetType="Shell" ApplyToDerivedTypes="True">
