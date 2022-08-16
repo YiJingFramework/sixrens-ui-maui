@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:SixRens.UI.MAUI.ViewModels"
              x:Class="SixRens.UI.MAUI.Views.MainPage"
-             x:DataType="vm:MainPageViewModel">
+             x:DataType="vm:MainPageViewModel"
+             Shell.NavBarIsVisible="False" >
 
     <ScrollView>
         <VerticalStackLayout

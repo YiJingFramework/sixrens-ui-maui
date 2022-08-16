@@ -8,7 +8,6 @@ namespace SixRens.UI.MAUI.Views
     {
         public MainPage(
             MainPageViewModel viewModel,
-            SixRensCore sixRensCore,
             ExceptionHandler exceptionHandler)
         {
             InitializeComponent();

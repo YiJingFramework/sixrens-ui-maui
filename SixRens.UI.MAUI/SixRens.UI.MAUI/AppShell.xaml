@@ -4,11 +4,40 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:v="clr-namespace:SixRens.UI.MAUI.Views"
-    Shell.FlyoutBehavior="Disabled">
+    FlyoutBehavior="Disabled" >
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate v:MainPage}"
-        Route="MainPage" />
+    <TabBar>
+        
+        <ShellContent
+            Title="起课"
+            Icon="dotnet_bot.png"
+            ContentTemplate="{DataTemplate v:CaseCreationPage}"
+            Route="new" />
 
+        <ShellContent
+            Title="占例"
+            Icon="dotnet_bot.png"
+            ContentTemplate="{DataTemplate v:CaseManagementPage}"
+            Route="cases" />
+
+        <ShellContent
+            x:Name="mainPage"
+            Title="盘面"
+            Icon="dotnet_bot.png"
+            ContentTemplate="{DataTemplate v:MainPage}"
+            Route="main" />
+
+        <ShellContent
+            Title="插件"
+            Icon="dotnet_bot.png"
+            ContentTemplate="{DataTemplate v:PluginManagementPage}"
+            Route="plugins" />
+
+        <ShellContent
+            Title="设置"
+            Icon="dotnet_bot.png"
+            ContentTemplate="{DataTemplate v:SettingsPage}"
+            Route="settings" />
+        
+    </TabBar>
 </Shell>
