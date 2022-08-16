@@ -6,7 +6,7 @@
         {
             InitializeComponent();
 
-            this.CurrentItem = mainPage;
+            CurrentItem = mainPage;
         }
     }
 }

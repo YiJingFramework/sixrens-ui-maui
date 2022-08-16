@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SixRens.UI.MAUI.Services.Paths
+﻿namespace SixRens.UI.MAUI.Services.Paths
 {
     public class PathProvider
     {
         private readonly string basePath;
         public PathProvider(IFileSystem fileSystem)
         {
-            this.basePath = fileSystem.AppDataDirectory;
+            basePath = fileSystem.AppDataDirectory;
         }
         public string GetFullPath(string path)
         {

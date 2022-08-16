@@ -2,11 +2,6 @@
 using SixRens.Core.插件管理.预设管理;
 using SixRens.UI.MAUI.Services.ExceptionHandling;
 using SixRens.UI.MAUI.Services.Paths;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SixRens.UI.MAUI.Services.SixRens
 {
@@ -14,7 +9,8 @@ namespace SixRens.UI.MAUI.Services.SixRens
     {
         public 插件包管理器 PluginPackageManager { get; }
         public 预设管理器 PresetManager { get; }
-        readonly IFileSystem fileSystem;
+
+        private readonly IFileSystem fileSystem;
 
         public async Task<bool> InstallDefaultPlugins()
         {
@@ -52,18 +48,18 @@ namespace SixRens.UI.MAUI.Services.SixRens
         }
 
         public SixRensCore(
-            ExceptionHandler exceptionHandler, 
-            PathProvider pathProvider, 
+            ExceptionHandler exceptionHandler,
+            PathProvider pathProvider,
             IFileSystem fileSystem)
         {
             this.fileSystem = fileSystem;
             var saver = new DataStorager(pathProvider);
             try
             {
-                this.PluginPackageManager = new(saver);
-                this.PresetManager = new(saver);
+                PluginPackageManager = new(saver);
+                PresetManager = new(saver);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 exceptionHandler.Handle(e);
             }

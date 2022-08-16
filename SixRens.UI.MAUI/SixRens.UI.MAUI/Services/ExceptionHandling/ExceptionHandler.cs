@@ -1,10 +1,4 @@
-﻿using Android.Views;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Extensions.Logging;
 
 namespace SixRens.UI.MAUI.Services.ExceptionHandling
 {
@@ -14,11 +8,11 @@ namespace SixRens.UI.MAUI.Services.ExceptionHandling
         private Page page;
         private readonly List<(Exception e, bool exitAfterDisplay)> exceptions;
 
-        public ExceptionHandler(ILogger<ExceptionHandler> logger) 
-        { 
+        public ExceptionHandler(ILogger<ExceptionHandler> logger)
+        {
             this.logger = logger;
-            this.page = null;
-            this.exceptions = new();
+            page = null;
+            exceptions = new();
         }
 
         public void SetDisplayPage(Page page)
@@ -52,7 +46,7 @@ namespace SixRens.UI.MAUI.Services.ExceptionHandling
                 else
                 {
                     var task = page.DisplayAlert("发生了错误：", e.Message, "确定");
-                    if(exitAfterDisplay)
+                    if (exitAfterDisplay)
                     {
                         _ = task.ContinueWith((_) => {
                             Environment.Exit(0);

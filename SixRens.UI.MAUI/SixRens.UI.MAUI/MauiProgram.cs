@@ -36,10 +36,10 @@ namespace SixRens.UI.MAUI
         }
         public static void RegisterPages(IServiceCollection services)
         {
-            services.AddSingleton<AppShell>();
+            _ = services.AddSingleton<AppShell>();
 
-            services.AddSingleton<MainPage>();
-            services.AddSingleton<MainPageViewModel>();
+            _ = services.AddSingleton<MainPage>();
+            _ = services.AddSingleton<MainPageViewModel>();
         }
     }
 }
