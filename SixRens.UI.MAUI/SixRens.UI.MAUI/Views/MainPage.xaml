@@ -32,10 +32,15 @@
                 HorizontalOptions="Center" />
 
             <Button
-                x:Name="CounterBtn"
-                Text="{Binding Count}"
+                Text="{Binding PluginsCount}"
                 SemanticProperties.Hint="Counts the number of times you click"
-                Command="{Binding IncreaseCountCommand}"
+                Command="{Binding InstallDefaultPluginsCommand}"
+                HorizontalOptions="Center" />
+
+            <Button
+                Text="{Binding PresetsCount}"
+                SemanticProperties.Hint="Counts the number of times you click"
+                Command="{Binding InstallDefaultPresetsCommand}"
                 HorizontalOptions="Center" />
 
         </VerticalStackLayout>
