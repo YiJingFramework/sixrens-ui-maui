@@ -1,4 +1,7 @@
-﻿using SixRens.UI.MAUI.Views;
+﻿using SixRens.UI.MAUI.Services.ExceptionHandling;
+using SixRens.UI.MAUI.Services.SixRens;
+using SixRens.UI.MAUI.ViewModels;
+using SixRens.UI.MAUI.Views;
 
 namespace SixRens.UI.MAUI
 {
@@ -14,8 +17,24 @@ namespace SixRens.UI.MAUI
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            builder.Services.AddSingleton<MainPage>();
+            RegisterServices(builder.Services);
+            RegisterPages(builder.Services);
+        
             return builder.Build();
+        }
+
+        public static void RegisterServices(IServiceCollection services)
+        {
+            services.AddLogging();
+            services.AddSingleton<ExceptionHandler>();
+            services.AddSingleton<SixRensCore>();
+        }
+        public static void RegisterPages(IServiceCollection services)
+        {
+            services.AddSingleton<AppShell>();
+
+            services.AddSingleton<MainPage>();
+            services.AddSingleton<MainPageViewModel>();
         }
     }
 }
