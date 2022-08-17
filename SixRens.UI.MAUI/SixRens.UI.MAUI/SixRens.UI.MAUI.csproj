@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0-android;</TargetFrameworks>
+		<TargetFrameworks>net6.0-android</TargetFrameworks>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>SixRens.UI.MAUI</RootNamespace>
 		<UseMaui>true</UseMaui>
@@ -9,7 +9,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 
 		<!-- Display name -->
-		<ApplicationTitle>SixRens.UI.MAUI</ApplicationTitle>
+		<ApplicationTitle>六壬吾心</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>io.github.yijingframework.sixrens</ApplicationId>
@@ -48,10 +48,6 @@
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
 	  <PackageReference Include="SixRens.Core" Version="1.17.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Models\" />
 	</ItemGroup>
 
 	<ItemGroup>
