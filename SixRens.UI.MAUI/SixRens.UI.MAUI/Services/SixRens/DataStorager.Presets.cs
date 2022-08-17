@@ -1,15 +1,9 @@
 ﻿using LiteDB;
-using SixRens.Core.插件管理.插件包管理;
 using SixRens.Core.插件管理.预设管理;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SixRens.UI.MAUI.Services.SixRens
 {
-    partial class DataStorager : I预设管理器储存器
+    public partial class DataStorager : I预设管理器储存器
     {
         private class Preset
         {
@@ -19,7 +13,7 @@ namespace SixRens.UI.MAUI.Services.SixRens
         }
         private ILiteCollection<Preset> GetPresetCollection()
         {
-            var result = this.database.GetCollection<Preset>("presets");
+            var result = database.GetCollection<Preset>("presets");
             return result;
         }
         public IEnumerable<(string 预设名, string 内容)> 获取所有预设文件()

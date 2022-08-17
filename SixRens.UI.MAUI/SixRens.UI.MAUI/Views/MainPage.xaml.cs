@@ -16,7 +16,7 @@ namespace SixRens.UI.MAUI.Views
 
             firstLoad = true;
             Loaded += async (_, _) => await OnLoaded();
-            
+
             BindingContext = viewModel;
             InitializeComponent();
         }
@@ -29,7 +29,7 @@ namespace SixRens.UI.MAUI.Views
                 if (viewModel.DisplayNoPresetPrompt)
                 {
                     // 两者都要
-                    var install = await this.DisplayAlert(
+                    var install = await DisplayAlert(
                         "自动配置",
                         "检测到您没有配置任何插件包和预设，是否安装默认配置？",
                         "安装", "稍后");
@@ -42,7 +42,7 @@ namespace SixRens.UI.MAUI.Views
                 else
                 {
                     // 仅插件包
-                    var install = await this.DisplayAlert(
+                    var install = await DisplayAlert(
                         "自动配置",
                         "检测到您没有任何插件包，是否安装默认插件包？",
                         "安装", "稍后");
@@ -53,7 +53,7 @@ namespace SixRens.UI.MAUI.Views
             else if (viewModel.DisplayNoPresetPrompt)
             {
                 // 仅预设
-                var install = await this.DisplayAlert(
+                var install = await DisplayAlert(
                     "自动配置",
                     "检测到您没有任何预设，是否导入默认预设？",
                     "导入", "稍后");

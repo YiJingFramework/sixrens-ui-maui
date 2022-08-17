@@ -1,20 +1,14 @@
 ﻿using LiteDB;
 using SixRens.Core.插件管理.插件包管理;
-using SixRens.Core.插件管理.预设管理;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SixRens.UI.MAUI.Services.SixRens
 {
-    partial class DataStorager : I插件包管理器储存器
+    public partial class DataStorager : I插件包管理器储存器
     {
         private const string packageDeletedKey = "deleted";
         private ILiteStorage<string> GetPluginPackageStorage()
         {
-            return this.database.GetStorage<string>("plugin_packages", "plugin_packages_chunks");
+            return database.GetStorage<string>("plugin_packages", "plugin_packages_chunks");
         }
         public string 储存插件包文件(Stream 插件包)
         {

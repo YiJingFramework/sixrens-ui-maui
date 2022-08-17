@@ -13,7 +13,7 @@ namespace SixRens.UI.MAUI.ViewModels
         }
 
         [RelayCommand]
-        async Task RemoveAllPresetsAsync()
+        private async Task RemoveAllPresetsAsync()
         {
             var presets = core.PresetManager.预设列表.ToArray();
             await Task.Factory.StartNew(() => {
@@ -23,7 +23,7 @@ namespace SixRens.UI.MAUI.ViewModels
         }
 
         [RelayCommand]
-        async Task RemoveAllPluginPackagesAsync()
+        private async Task RemoveAllPluginPackagesAsync()
         {
             var packages = core.PluginPackageManager.插件包.ToArray();
             await Task.Factory.StartNew(() => {

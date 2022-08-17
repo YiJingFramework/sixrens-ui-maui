@@ -1,15 +1,8 @@
 ﻿using LiteDB;
-using SixRens.Core.插件管理.插件包管理;
-using SixRens.Core.插件管理.预设管理;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SixRens.UI.MAUI.Services.SixRens
 {
-    partial class DataStorager
+    public partial class DataStorager
     {
         private class Case
         {
@@ -20,7 +13,7 @@ namespace SixRens.UI.MAUI.Services.SixRens
         }
         private ILiteCollection<Case> GetCaseCollection()
         {
-            var result = this.database.GetCollection<Case>("cases");
+            var result = database.GetCollection<Case>("cases");
             return result;
         }
         public IEnumerable<(Guid id, string name, string content)> ListCases()

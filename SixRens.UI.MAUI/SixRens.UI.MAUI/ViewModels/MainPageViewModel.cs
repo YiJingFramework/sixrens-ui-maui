@@ -11,8 +11,8 @@ namespace SixRens.UI.MAUI.ViewModels
         {
             this.core = core;
 
-            this.DisplayNoPluginPrompt = core.PluginPackageManager.插件包.Count is 0;
-            this.DisplayNoPresetPrompt = core.PresetManager.预设列表.Count is 0;
+            DisplayNoPluginPrompt = core.PluginPackageManager.插件包.Count is 0;
+            DisplayNoPresetPrompt = core.PresetManager.预设列表.Count is 0;
         }
 
         public bool DisplayNoPluginPrompt { get; }

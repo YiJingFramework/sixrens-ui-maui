@@ -55,7 +55,7 @@ namespace SixRens.UI.MAUI.Services.SixRens
             IFileSystem fileSystem)
         {
             this.fileSystem = fileSystem;
-            this.storager = new DataStorager(pathProvider);
+            storager = new DataStorager(pathProvider);
             try
             {
                 PluginPackageManager = new(storager);
@@ -70,8 +70,8 @@ namespace SixRens.UI.MAUI.Services.SixRens
 
         public void Dispose()
         {
-            this.storager.Dispose();
-            this.PluginPackageManager.Dispose();
+            storager.Dispose();
+            PluginPackageManager.Dispose();
         }
     }
 }
