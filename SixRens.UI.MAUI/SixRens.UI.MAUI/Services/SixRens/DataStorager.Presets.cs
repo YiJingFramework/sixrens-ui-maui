@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace SixRens.UI.MAUI.Services.SixRens
 {
-    internal sealed partial class DataStorager : I预设管理器储存器
+    partial class DataStorager : I预设管理器储存器
     {
-        public class Preset
+        private class Preset
         {
             public string Id { get; set; }
             public string Content { get; set; }

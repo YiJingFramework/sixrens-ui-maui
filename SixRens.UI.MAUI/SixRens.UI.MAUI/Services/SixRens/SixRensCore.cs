@@ -9,6 +9,7 @@ namespace SixRens.UI.MAUI.Services.SixRens
     {
         public 插件包管理器 PluginPackageManager { get; }
         public 预设管理器 PresetManager { get; }
+        public CaseManager CaseManager { get; }
 
         private readonly DataStorager storager;
         private readonly IFileSystem fileSystem;
@@ -59,6 +60,7 @@ namespace SixRens.UI.MAUI.Services.SixRens
             {
                 PluginPackageManager = new(storager);
                 PresetManager = new(storager);
+                CaseManager = new(storager);
             }
             catch (Exception e)
             {

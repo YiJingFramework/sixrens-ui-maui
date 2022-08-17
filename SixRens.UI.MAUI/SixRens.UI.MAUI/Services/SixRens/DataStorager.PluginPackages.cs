@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SixRens.UI.MAUI.Services.SixRens
 {
-    internal sealed partial class DataStorager : I插件包管理器储存器
+    partial class DataStorager : I插件包管理器储存器
     {
         private const string packageDeletedKey = "deleted";
         private ILiteStorage<string> GetPluginPackageStorage()

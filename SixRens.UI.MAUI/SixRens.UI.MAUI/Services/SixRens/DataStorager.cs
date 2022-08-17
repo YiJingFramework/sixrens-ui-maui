@@ -7,10 +7,10 @@ using System.Text;
 
 namespace SixRens.UI.MAUI.Services.SixRens
 {
-    internal sealed partial class DataStorager : IDisposable
+    public sealed partial class DataStorager : IDisposable
     {
         readonly LiteDatabase database;
-        public DataStorager(PathProvider pathProvider)
+        internal DataStorager(PathProvider pathProvider)
         {
             this.database = new LiteDatabase(new ConnectionString() {
                 Collation = new(lcid: 2052, CompareOptions.IgnoreCase),
