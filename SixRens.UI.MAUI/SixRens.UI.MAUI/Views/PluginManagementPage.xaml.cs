@@ -1,9 +1,13 @@
+using SixRens.UI.MAUI.ViewModels;
+
 namespace SixRens.UI.MAUI.Views;
 
-public partial class PluginManagementPage : ContentPage
+public partial class PluginManagementPage 
+    : ContentPage, IWithBindingContext<PluginManagementPageViewModel>
 {
-    public PluginManagementPage()
+    public PluginManagementPage(PluginManagementPageViewModel viewModel)
     {
+        this.BindingContext = viewModel;
         InitializeComponent();
     }
 }

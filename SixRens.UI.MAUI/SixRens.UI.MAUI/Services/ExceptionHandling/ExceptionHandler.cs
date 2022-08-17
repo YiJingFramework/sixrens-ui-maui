@@ -15,18 +15,14 @@ namespace SixRens.UI.MAUI.Services.ExceptionHandling
             exceptions = new();
         }
 
-        public void SetDisplayPage(Page page)
+        public async Task SetDisplayPageAsync(Page page)
         {
             this.page = page;
             foreach (var e in exceptions)
             {
-                var task = page.DisplayAlert("发生了错误：", e.e.Message, "确定");
+                await page.DisplayAlert("发生了错误：", e.e.Message, "确定");
                 if (e.exitAfterDisplay)
-                {
-                    _ = task.ContinueWith((_) => {
-                        Environment.Exit(0);
-                    });
-                }
+                    Application.Current.Quit();
             }
             exceptions.Clear();
         }
@@ -49,7 +45,7 @@ namespace SixRens.UI.MAUI.Services.ExceptionHandling
                     if (exitAfterDisplay)
                     {
                         _ = task.ContinueWith((_) => {
-                            Environment.Exit(0);
+                            Application.Current.Quit();
                         });
                     }
                 }

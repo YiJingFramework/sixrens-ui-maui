@@ -6,32 +6,29 @@ namespace SixRens.UI.MAUI.ViewModels
 {
     public sealed partial class MainPageViewModel : ObservableObject
     {
-        private SixRensCore core;
+        private readonly SixRensCore core;
         public MainPageViewModel(SixRensCore core)
         {
             this.core = core;
-            PluginsCount = core.PluginPackageManager.插件包.Count;
-            PresetsCount = core.PresetManager.预设列表.Count;
+
+            this.DisplayNoPluginPrompt = core.PluginPackageManager.插件包.Count is 0;
+            this.DisplayNoPresetPrompt = core.PresetManager.预设列表.Count is 0;
         }
 
-        [ObservableProperty]
-        private int pluginsCount;
+        public bool DisplayNoPluginPrompt { get; }
+
+        public bool DisplayNoPresetPrompt { get; }
 
         [RelayCommand]
-        private async Task InstallDefaultPlugins()
+        private async Task InstallDefaultPluginsAsync()
         {
-            await core.InstallDefaultPlugins();
-            PluginsCount = core.PluginPackageManager.插件包.Count;
+            _ = await core.InstallDefaultPluginsAsync();
         }
 
-        [ObservableProperty]
-        private int presetsCount;
-
         [RelayCommand]
-        private async Task InstallDefaultPresets()
+        private async Task InstallDefaultPresetsAsync()
         {
-            await core.InstallDefaultPresets();
-            PresetsCount = core.PresetManager.预设列表.Count;
+            await core.InstallDefaultPresetsAsync();
         }
     }
 }

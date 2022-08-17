@@ -12,7 +12,7 @@ namespace SixRens.UI.MAUI.Services.SixRens
 
         private readonly IFileSystem fileSystem;
 
-        public async Task<bool> InstallDefaultPlugins()
+        public async Task<bool> InstallDefaultPluginsAsync()
         {
             using var s = await fileSystem.OpenAppPackageFileAsync("SixRens.DefaultPlugins-1.14.1.srspg");
 
@@ -27,7 +27,7 @@ namespace SixRens.UI.MAUI.Services.SixRens
             return true;
         }
 
-        public async Task InstallDefaultPresets()
+        public async Task InstallDefaultPresetsAsync()
         {
             string content;
             using (var s = await fileSystem.OpenAppPackageFileAsync("DefaultPreset.txt"))

@@ -13,7 +13,7 @@
             VerticalOptions="Center">
 
             <Image
-                Source="dotnet_bot.png"
+                Source="dotnet_bot.svg"
                 SemanticProperties.Description="Cute dot net bot waving hi to you!"
                 HeightRequest="200"
                 HorizontalOptions="Center" />
@@ -32,13 +32,13 @@
                 HorizontalOptions="Center" />
 
             <Button
-                Text="{Binding PluginsCount}"
+                Text="{Binding DisplayNoPluginPrompt}"
                 SemanticProperties.Hint="Counts the number of times you click"
                 Command="{Binding InstallDefaultPluginsCommand}"
                 HorizontalOptions="Center" />
 
             <Button
-                Text="{Binding PresetsCount}"
+                Text="{Binding DisplayNoPresetPrompt}"
                 SemanticProperties.Hint="Counts the number of times you click"
                 Command="{Binding InstallDefaultPresetsCommand}"
                 HorizontalOptions="Center" />
