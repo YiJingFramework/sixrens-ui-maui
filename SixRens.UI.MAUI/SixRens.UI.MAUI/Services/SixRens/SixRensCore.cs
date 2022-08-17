@@ -5,11 +5,12 @@ using SixRens.UI.MAUI.Services.Paths;
 
 namespace SixRens.UI.MAUI.Services.SixRens
 {
-    public sealed partial class SixRensCore
+    public sealed partial class SixRensCore : IDisposable
     {
         public 插件包管理器 PluginPackageManager { get; }
         public 预设管理器 PresetManager { get; }
 
+        private readonly DataStorager storager;
         private readonly IFileSystem fileSystem;
 
         public async Task<bool> InstallDefaultPluginsAsync()
@@ -53,16 +54,22 @@ namespace SixRens.UI.MAUI.Services.SixRens
             IFileSystem fileSystem)
         {
             this.fileSystem = fileSystem;
-            var saver = new DataStorager(pathProvider);
+            this.storager = new DataStorager(pathProvider);
             try
             {
-                PluginPackageManager = new(saver);
-                PresetManager = new(saver);
+                PluginPackageManager = new(storager);
+                PresetManager = new(storager);
             }
             catch (Exception e)
             {
                 exceptionHandler.Handle(e);
             }
+        }
+
+        public void Dispose()
+        {
+            this.storager.Dispose();
+            this.PluginPackageManager.Dispose();
         }
     }
 }

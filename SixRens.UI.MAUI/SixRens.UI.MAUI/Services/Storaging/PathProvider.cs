@@ -22,7 +22,12 @@
         {
             return new(GetFullPath(path));
         }
+
+        public FileInfo Database => GetFile("database.db");
+
+        [Obsolete("用数据库")]
         public DirectoryInfo PluginPackages => GetDirectory("plugins");
+        [Obsolete("用数据库")]
         public DirectoryInfo Presets => GetDirectory("presets");
     }
 }
