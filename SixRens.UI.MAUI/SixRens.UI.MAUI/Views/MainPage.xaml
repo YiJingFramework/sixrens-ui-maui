@@ -2,6 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:SixRens.UI.MAUI.ViewModels"
+             xmlns:m="clr-namespace:SixRens.UI.MAUI.Models"
+             xmlns:shared="clr-namespace:SixRens.UI.MAUI.Views.Shared"
              x:Class="SixRens.UI.MAUI.Views.MainPage"
              x:DataType="vm:MainPageViewModel"
              Shell.NavBarIsVisible="False" >
@@ -19,6 +21,7 @@
                 HorizontalOptions="Center" />
 
             <Label
+                x:Name="qwq"
                 Text="Hello, World!"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
@@ -32,17 +35,20 @@
                 HorizontalOptions="Center" />
 
             <Button
-                Text="{Binding DisplayNoPluginPrompt}"
+                Text="{Binding DefaultPluginAndPresetRequirement.WithoutPlugins}"
                 SemanticProperties.Hint="Counts the number of times you click"
-                Command="{Binding InstallDefaultPluginsCommand}"
                 HorizontalOptions="Center" />
 
             <Button
-                Text="{Binding DisplayNoPresetPrompt}"
+                Text="{Binding DefaultPluginAndPresetRequirement.WithoutPresets}"
                 SemanticProperties.Hint="Counts the number of times you click"
-                Command="{Binding InstallDefaultPresetsCommand}"
                 HorizontalOptions="Center" />
 
+            <shared:ValueMonitor x:TypeArguments="m:DefaultPluginAndPresetRequirement" 
+                                 x:Name="abc"
+                                 ValueChanged="DefaultPluginAndPresetRequirementChanged"
+                                 MonitoringValue="{Binding DefaultPluginAndPresetRequirement}" />
+            
         </VerticalStackLayout>
     </ScrollView>
 
