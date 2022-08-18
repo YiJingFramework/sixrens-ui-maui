@@ -2,11 +2,31 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:SixRens.UI.MAUI.ViewModels"
+             xmlns:coreppm="clr-namespace:SixRens.Core.插件管理.插件包管理;assembly=SixRens.Core"
              x:Class="SixRens.UI.MAUI.Views.PluginManagementPage"
              Title="PluginManagementPage"
-             x:DataType="vm:PluginManagementPageViewModel"
-             Shell.NavBarIsVisible="False" >
-    <VerticalStackLayout>
+             x:DataType="vm:PluginManagementPageViewModel" >
+    <StackLayout>
+        <StackLayout>
+            <Label Text="插件包" />
+            <CollectionView ItemsSource="{Binding PluginPackages}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="coreppm:插件包">
+                        <Frame>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer />
+                            </Frame.GestureRecognizers>
+                            <Label Text="{Binding 名称}" ></Label>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Frame>
+                <Button Text="导入新插件包" />
+            </Frame>
+        </StackLayout>
+        <Border />
+        
         <Button 
             Text="清除全部插件包"
             Command="{Binding RemoveAllPluginPackagesCommand}"/>
@@ -15,5 +35,5 @@
             Command="{Binding RemoveAllPresetsCommand}"/>
         <Button
             Text="测试选择文件" Clicked="PickFileTest"></Button>
-    </VerticalStackLayout>
+    </StackLayout>
 </ContentPage>

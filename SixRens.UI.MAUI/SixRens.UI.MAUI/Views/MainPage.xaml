@@ -5,8 +5,7 @@
              xmlns:m="clr-namespace:SixRens.UI.MAUI.Models"
              xmlns:shared="clr-namespace:SixRens.UI.MAUI.Views.Shared"
              x:Class="SixRens.UI.MAUI.Views.MainPage"
-             x:DataType="vm:MainPageViewModel"
-             Shell.NavBarIsVisible="False" >
+             x:DataType="vm:MainPageViewModel" >
 
     <ScrollView>
         <VerticalStackLayout

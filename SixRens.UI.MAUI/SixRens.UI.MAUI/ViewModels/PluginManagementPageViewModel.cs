@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SixRens.Core.插件管理.插件包管理;
 using SixRens.UI.MAUI.Services.SixRens;
+using System.Collections.ObjectModel;
 
 namespace SixRens.UI.MAUI.ViewModels
 {
@@ -10,7 +12,10 @@ namespace SixRens.UI.MAUI.ViewModels
         public PluginManagementPageViewModel(SixRensCore core)
         {
             this.core = core;
+            this.PluginPackages = new(core.PluginPackageManager.插件包);
         }
+
+        public ObservableCollection<插件包> PluginPackages { get; }
 
         [RelayCommand]
         private async Task RemoveAllPresetsAsync()

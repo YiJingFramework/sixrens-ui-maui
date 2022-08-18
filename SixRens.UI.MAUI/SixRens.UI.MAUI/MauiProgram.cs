@@ -1,4 +1,5 @@
-﻿using SixRens.UI.MAUI.Services.ExceptionHandling;
+﻿using CommunityToolkit.Maui;
+using SixRens.UI.MAUI.Services.ExceptionHandling;
 using SixRens.UI.MAUI.Services.Paths;
 using SixRens.UI.MAUI.Services.SixRens;
 using SixRens.UI.MAUI.ViewModels;
@@ -15,7 +16,9 @@ namespace SixRens.UI.MAUI
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts => {
                     _ = fonts.AddFont("HongLeiBanShu.ttf", "HongLei");
-                });
+                })
+                // .UseMauiCommunityToolkit()
+                ;
 
             RegisterServices(builder.Services);
             RegisterPages(builder.Services);

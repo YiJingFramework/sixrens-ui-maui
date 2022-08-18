@@ -2,8 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SixRens.UI.MAUI.Views.CaseCreationPage"
-             Title="CaseCreationPage"
-             Shell.NavBarIsVisible="False" >
+             Title="CaseCreationPage" >
     <VerticalStackLayout>
         <Button
             Text="前往设置页面"

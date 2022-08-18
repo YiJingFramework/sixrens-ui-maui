@@ -4,8 +4,7 @@
              xmlns:vm="clr-namespace:SixRens.UI.MAUI.ViewModels"
              x:Class="SixRens.UI.MAUI.Views.SettingsPage"
              Title="SettingsPage"
-             x:DataType="vm:SettingsPageViewModel"
-             Shell.NavBarIsVisible="False" >
+             x:DataType="vm:SettingsPageViewModel" >
     <VerticalStackLayout>
         <Label 
             Text="{Binding Text}"
