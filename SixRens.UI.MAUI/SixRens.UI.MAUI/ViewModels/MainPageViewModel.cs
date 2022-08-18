@@ -29,6 +29,7 @@ namespace SixRens.UI.MAUI.ViewModels
         private async Task InstallDefaultPluginsAndPresetsAsync(
             DefaultPluginAndPresetRequirement requirement)
         {
+            requirement ??= defaultPluginAndPresetRequirement;
             if (requirement.WithoutPlugins)
                 _ = await core.InstallDefaultPluginsAsync();
             if (requirement.WithoutPresets)

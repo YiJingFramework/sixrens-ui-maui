@@ -31,6 +31,8 @@ namespace SixRens.UI.MAUI
             _ = services.AddSingleton(FileSystem.Current);
             _ = services.AddSingleton<PathProvider>();
 
+            _ = services.AddSingleton(FilePicker.Default);
+
             _ = services.AddSingleton<SixRensCore>();
         }
         public static void RegisterPages(IServiceCollection services)

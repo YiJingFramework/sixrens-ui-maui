@@ -13,5 +13,7 @@
         <Button 
             Text="清除全部预设"
             Command="{Binding RemoveAllPresetsCommand}"/>
+        <Button
+            Text="测试选择文件" Clicked="PickFileTest"></Button>
     </VerticalStackLayout>
 </ContentPage>
