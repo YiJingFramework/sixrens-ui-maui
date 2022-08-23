@@ -1,0 +1,14 @@
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               xmlns:coreppm="clr-namespace:SixRens.Core.插件管理.插件包管理;assembly=SixRens.Core"
+               x:Class="SixRens.UI.MAUI.Views.PluginPackageDetailsPopup"
+               x:DataType="coreppm:插件包">
+
+    <VerticalStackLayout>
+        <Label Text="{Binding 名称}" />
+        <Label Text="{Binding 网址}" />
+        <Button Text="删除插件包" Clicked="ReturnDelete" />
+    </VerticalStackLayout>
+
+</toolkit:Popup>

@@ -19,7 +19,7 @@ namespace SixRens.UI.MAUI.Views
 
             firstLoad = true;
             Loaded += async (_, _) => await OnLoaded();
-
+            
             BindingContext = viewModel;
             InitializeComponent();
         }

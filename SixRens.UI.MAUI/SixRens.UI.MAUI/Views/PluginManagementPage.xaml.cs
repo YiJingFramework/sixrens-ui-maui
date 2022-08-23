@@ -1,4 +1,7 @@
+using CommunityToolkit.Maui.Views;
 using Microsoft.Maui.Storage;
+using SixRens.Core.插件管理.插件包管理;
+using SixRens.UI.MAUI.Extensions;
 using SixRens.UI.MAUI.ViewModels;
 using static Android.Graphics.Path;
 
@@ -16,8 +19,20 @@ public partial class PluginManagementPage
         InitializeComponent();
     }
 
-    private async void PickFileTest(object sender, EventArgs e)
+    private async void ShowPluginPackageDetails(object sender, EventArgs e)
     {
-        var t = await filePicker.PickAsync();
+        var frame = (Frame)sender;
+        var package = (插件包)frame.BindingContext;
+        var popupResult = (PluginPackageDetailsPopup.PopupResult)
+            await this.ShowPopupAsync(new PluginPackageDetailsPopup(package));
+        switch (popupResult)
+        {
+            case PluginPackageDetailsPopup.PopupResult.DeletionRequired:
+            {
+                var viewModel = this.GetBindingContext();
+                viewModel.RemovePluginPackageCommand.CheckAndExecute(package);
+                break;
+            }
+        }
     }
 }

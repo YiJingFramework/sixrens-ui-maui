@@ -12,9 +12,9 @@
             <CollectionView ItemsSource="{Binding PluginPackages}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="coreppm:插件包">
-                        <Frame>
+                        <Frame BindingContext="{Binding .}">
                             <Frame.GestureRecognizers>
-                                <TapGestureRecognizer />
+                                <TapGestureRecognizer Tapped="ShowPluginPackageDetails" />
                             </Frame.GestureRecognizers>
                             <Label Text="{Binding 名称}" ></Label>
                         </Frame>
@@ -33,7 +33,5 @@
         <Button 
             Text="清除全部预设"
             Command="{Binding RemoveAllPresetsCommand}"/>
-        <Button
-            Text="测试选择文件" Clicked="PickFileTest"></Button>
     </StackLayout>
 </ContentPage>

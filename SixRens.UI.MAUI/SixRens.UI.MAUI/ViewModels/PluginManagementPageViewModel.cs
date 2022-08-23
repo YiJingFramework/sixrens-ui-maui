@@ -28,6 +28,15 @@ namespace SixRens.UI.MAUI.ViewModels
         }
 
         [RelayCommand]
+        private async Task RemovePluginPackageAsync(插件包 package)
+        {
+            await Task.Factory.StartNew(() => {
+                core.PluginPackageManager.移除插件包(package);
+            });
+            PluginPackages.Remove(package);
+        }
+
+        [RelayCommand]
         private async Task RemoveAllPluginPackagesAsync()
         {
             var packages = core.PluginPackageManager.插件包.ToArray();
@@ -35,6 +44,7 @@ namespace SixRens.UI.MAUI.ViewModels
                 foreach (var package in packages)
                     core.PluginPackageManager.移除插件包(package);
             });
+            PluginPackages.Clear();
         }
     }
 }
