@@ -1,7 +1,7 @@
 using CommunityToolkit.Maui.Views;
 using SixRens.Core.插件管理.插件包管理;
 
-namespace SixRens.UI.MAUI.Views;
+namespace SixRens.UI.MAUI.Pages;
 
 public partial class PluginPackageDetailsPopup : Popup
 {

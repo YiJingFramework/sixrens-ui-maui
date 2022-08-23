@@ -3,7 +3,7 @@ using SixRens.UI.MAUI.Services.ExceptionHandling;
 using SixRens.UI.MAUI.Services.SixRens;
 using static Android.App.Assist.AssistStructure;
 
-namespace SixRens.UI.MAUI.Views
+namespace SixRens.UI.MAUI.Pages
 {
     public partial class MainPage : ContentPage
     {

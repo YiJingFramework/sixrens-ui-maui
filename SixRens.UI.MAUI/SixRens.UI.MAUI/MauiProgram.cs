@@ -1,8 +1,8 @@
 ﻿using CommunityToolkit.Maui;
+using SixRens.UI.MAUI.Pages;
 using SixRens.UI.MAUI.Services.ExceptionHandling;
 using SixRens.UI.MAUI.Services.Paths;
 using SixRens.UI.MAUI.Services.SixRens;
-using SixRens.UI.MAUI.Views;
 
 namespace SixRens.UI.MAUI
 {
@@ -42,13 +42,9 @@ namespace SixRens.UI.MAUI
             _ = services.AddSingleton<AppShell>();
 
             _ = services.AddSingleton<MainPage>();
-
             _ = services.AddSingleton<CaseCreationPage>();
-
             _ = services.AddSingleton<CaseManagementPage>();
-
             _ = services.AddSingleton<PluginManagementPage>();
-
             _ = services.AddSingleton<SettingsPage>();
         }
     }
