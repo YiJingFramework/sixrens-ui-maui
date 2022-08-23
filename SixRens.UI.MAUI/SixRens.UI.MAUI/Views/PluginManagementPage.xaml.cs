@@ -1,38 +1,73 @@
 using CommunityToolkit.Maui.Views;
+using Java.Lang;
 using Microsoft.Maui.Storage;
 using SixRens.Core.插件管理.插件包管理;
-using SixRens.UI.MAUI.Extensions;
-using SixRens.UI.MAUI.ViewModels;
+using SixRens.UI.MAUI.Services.SixRens;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using Xamarin.Google.Crypto.Tink.Prf;
 using static Android.Graphics.Path;
 
-namespace SixRens.UI.MAUI.Views;
-
-public partial class PluginManagementPage
-    : ContentPage, IWithBindingContext<PluginManagementPageViewModel>
+namespace SixRens.UI.MAUI.Views
 {
-    private IFilePicker filePicker;
-    public PluginManagementPage(PluginManagementPageViewModel viewModel, IFilePicker filePicker)
+    public partial class PluginManagementPage : ContentPage
     {
-        this.filePicker = filePicker;
-        BindingContext = viewModel;
-
-        InitializeComponent();
-    }
-
-    private async void ShowPluginPackageDetails(object sender, EventArgs e)
-    {
-        var frame = (Frame)sender;
-        var package = (插件包)frame.BindingContext;
-        var popupResult = (PluginPackageDetailsPopup.PopupResult)
-            await this.ShowPopupAsync(new PluginPackageDetailsPopup(package));
-        switch (popupResult)
+        private IFilePicker filePicker;
+        private SixRensCore core;
+        public PluginManagementPage(SixRensCore core, IFilePicker filePicker)
         {
-            case PluginPackageDetailsPopup.PopupResult.DeletionRequired:
+            this.filePicker = filePicker;
+            this.core = core;
+
+            InitializeComponent();
+
+            SyncWithCore();
+        }
+
+        private ObservableCollection<插件包> packageCollectionViewItemSource;
+
+        private void SyncWithCore()
+        {
+            this.packageCollectionViewItemSource = new(core.PluginPackageManager.插件包);
+            this.packageCollectionView.ItemsSource = this.packageCollectionViewItemSource;
+        }
+
+        private async void ShowPluginPackageDetails(object sender, EventArgs e)
+        {
+            var frame = (Frame)sender;
+            var package = (插件包)frame.BindingContext;
+            var popupResult = (PluginPackageDetailsPopup.PopupResult)
+                await this.ShowPopupAsync(new PluginPackageDetailsPopup(package));
+            switch (popupResult)
             {
-                var viewModel = this.GetBindingContext();
-                viewModel.RemovePluginPackageCommand.CheckAndExecute(package);
-                break;
+                case PluginPackageDetailsPopup.PopupResult.DeletionRequired:
+                {
+                    await Task.Factory.StartNew(() => {
+                        core.PluginPackageManager.移除插件包(package);
+                        _ = packageCollectionViewItemSource.Remove(package);
+                    });
+                    break;
+                }
             }
+        }
+
+        private async void ClearPackages(object sender, EventArgs e)
+        {
+            await Task.Factory.StartNew(() => {
+                var packages = core.PluginPackageManager.插件包.ToArray();
+                foreach (var package in packages)
+                    core.PluginPackageManager.移除插件包(package);
+                packageCollectionViewItemSource.Clear();
+            });
+        }
+
+        private async void ClearPresets(object sender, EventArgs e)
+        {
+            await Task.Factory.StartNew(() => {
+                var presets = core.PresetManager.预设列表.ToArray();
+                foreach (var preset in presets)
+                    core.PresetManager.删除预设(preset);
+            });
         }
     }
 }

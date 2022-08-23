@@ -1,12 +1,19 @@
-using SixRens.UI.MAUI.ViewModels;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SixRens.UI.MAUI.Views;
 
-public partial class SettingsPage : ContentPage, IWithBindingContext<SettingsPageViewModel>
+public partial class SettingsPage : ContentPage, IQueryAttributable
 {
-    public SettingsPage(SettingsPageViewModel viewModel)
+    public SettingsPage()
     {
-        this.BindingContext = viewModel;
         InitializeComponent();
+    }
+
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        if (query.TryGetValue("text", out var t) && t is string s)
+        {
+            label.Text = s;
+        }
     }
 }

@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:SixRens.UI.MAUI.ViewModels"
              xmlns:coreppm="clr-namespace:SixRens.Core.插件管理.插件包管理;assembly=SixRens.Core"
              x:Class="SixRens.UI.MAUI.Views.PluginManagementPage"
-             Title="PluginManagementPage"
-             x:DataType="vm:PluginManagementPageViewModel" >
+             Title="PluginManagementPage" >
     <StackLayout>
         <StackLayout>
             <Label Text="插件包" />
-            <CollectionView ItemsSource="{Binding PluginPackages}">
+            <CollectionView x:Name="packageCollectionView">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="coreppm:插件包">
                         <Frame BindingContext="{Binding .}">
@@ -28,10 +26,8 @@
         <Border />
         
         <Button 
-            Text="清除全部插件包"
-            Command="{Binding RemoveAllPluginPackagesCommand}"/>
+            Text="清除全部插件包" Clicked="ClearPackages"/>
         <Button 
-            Text="清除全部预设"
-            Command="{Binding RemoveAllPresetsCommand}"/>
+            Text="清除全部预设"  Clicked="ClearPresets"/>
     </StackLayout>
 </ContentPage>

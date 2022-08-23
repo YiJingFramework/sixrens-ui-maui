@@ -1,11 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:SixRens.UI.MAUI.ViewModels"
-             xmlns:m="clr-namespace:SixRens.UI.MAUI.Models"
-             xmlns:shared="clr-namespace:SixRens.UI.MAUI.Views.Shared"
-             x:Class="SixRens.UI.MAUI.Views.MainPage"
-             x:DataType="vm:MainPageViewModel" >
+             x:Class="SixRens.UI.MAUI.Views.MainPage" >
 
     <ScrollView>
         <VerticalStackLayout
@@ -33,22 +29,6 @@
                 FontSize="18"
                 HorizontalOptions="Center" />
 
-            <Button
-                Text="{Binding DefaultPluginAndPresetRequirement.WithoutPlugins}"
-                SemanticProperties.Hint="Counts the number of times you click"
-                HorizontalOptions="Center" />
-
-            <Button
-                Text="{Binding DefaultPluginAndPresetRequirement.WithoutPresets}"
-                SemanticProperties.Hint="Counts the number of times you click"
-                HorizontalOptions="Center" />
-
-            <shared:ValueMonitor x:TypeArguments="m:DefaultPluginAndPresetRequirement" 
-                                 x:Name="abc"
-                                 ValueChanged="DefaultPluginAndPresetRequirementChanged"
-                                 MonitoringValue="{Binding DefaultPluginAndPresetRequirement}" />
-            
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>
