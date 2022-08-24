@@ -1,14 +1,15 @@
 ﻿using AndroidX.Lifecycle;
 using SixRens.Core.占例存取;
 using SixRens.Core.壬式生成;
-using SixRens.UI.MAUI.Extensions;
 using SixRens.UI.MAUI.Services.ExceptionHandling;
 using SixRens.UI.MAUI.Services.SixRens;
+using SixRens.UI.MAUI.Tools.Extensions;
+using SixRens.UI.MAUI.Tools.Querying;
 using static Android.App.Assist.AssistStructure;
 
 namespace SixRens.UI.MAUI.Pages.Main
 {
-    public partial class MainPage : ContentPage, IQueryAttributable
+    public partial class MainPage : ContentPage, IQueryAttributable<MainPageQueryParameters>
     {
         private bool firstLoad;
         private readonly SixRensCore core;
@@ -81,10 +82,24 @@ namespace SixRens.UI.MAUI.Pages.Main
             }
         }
 
-        public void ApplyQueryAttributes(IDictionary<string, object> query)
+        void IQueryAttributable<MainPageQueryParameters>.ApplyQueryParameter(
+            MainPageQueryParameters parameter)
         {
-            var c = query.GetValueOrDefault("case", null) as 占例;
-            this.caseShowingGrid.BindingContext = c;
+            if (parameter is not null)
+            {
+                this.caseShowingGrid.BindingContext
+                    = new BindingCase(parameter.CaseName, parameter.Case);
+                
+                this.guidingGrid.IsVisible = false;
+                this.caseShowingGrid.IsVisible = true;
+            }
+            else
+            {
+                this.guidingGrid.IsVisible = true;
+                this.caseShowingGrid.IsVisible = false;
+
+                this.caseShowingGrid.BindingContext = null;
+            }
         }
 
         private async void GotoDivinationCreationPage(object sender, EventArgs e)

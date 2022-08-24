@@ -13,9 +13,11 @@
             <Grid x:Name="guidingGrid">
                 <Button Text="点击起课" Clicked="GotoDivinationCreationPage"/>
             </Grid>
-            
-            <Grid x:Name="caseShowingGrid" x:DataType="ns:BindingCase">
+
+            <Grid x:Name="caseShowingGrid" x:DataType="ns:BindingCase" IsVisible="False">
                 <Label Text="{Binding Name}"></Label>
+                <Label Text="{Binding DateTime}"></Label>
+                <Label Text="{Binding Plate.三传.初传}"></Label>
             </Grid>
 
         </VerticalStackLayout>

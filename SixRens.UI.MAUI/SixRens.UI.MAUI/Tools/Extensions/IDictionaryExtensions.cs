@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SixRens.UI.MAUI.Extensions
+namespace SixRens.UI.MAUI.Tools.Extensions
 {
     public static class IDictionaryExtensions
     {

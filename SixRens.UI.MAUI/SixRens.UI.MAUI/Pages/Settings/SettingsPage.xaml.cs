@@ -1,4 +1,4 @@
-using SixRens.UI.MAUI.Extensions;
+using SixRens.UI.MAUI.Tools.Extensions;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace SixRens.UI.MAUI.Pages.Settings;
