@@ -1,9 +1,9 @@
-namespace SixRens.UI.MAUI.Pages;
+namespace SixRens.UI.MAUI.Pages.CaseCreation;
 
-public partial class CaseManagementPage : ContentPage
+public partial class CaseCreationPage : ContentPage
 {
     AppShell shell;
-    public CaseManagementPage(AppShell shell)
+    public CaseCreationPage(AppShell shell)
     {
         InitializeComponent();
         this.shell = shell;
@@ -12,7 +12,7 @@ public partial class CaseManagementPage : ContentPage
     private void Button_Clicked(object sender, EventArgs e)
     {
         shell.GoToAsync(new ShellNavigationState("//settings"), new Dictionary<string, object>() {
-            ["text"] = "hello settings! i'm cm"
+            ["text"] = "hello settings! i'm cc"
         });
     }
 }

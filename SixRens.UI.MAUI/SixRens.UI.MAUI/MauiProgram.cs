@@ -1,5 +1,10 @@
 ﻿using CommunityToolkit.Maui;
 using SixRens.UI.MAUI.Pages;
+using SixRens.UI.MAUI.Pages.CaseCreation;
+using SixRens.UI.MAUI.Pages.CaseManagement;
+using SixRens.UI.MAUI.Pages.Main;
+using SixRens.UI.MAUI.Pages.PluginManagement;
+using SixRens.UI.MAUI.Pages.Settings;
 using SixRens.UI.MAUI.Services.ExceptionHandling;
 using SixRens.UI.MAUI.Services.Paths;
 using SixRens.UI.MAUI.Services.SixRens;

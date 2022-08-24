@@ -3,7 +3,11 @@
     x:Class="SixRens.UI.MAUI.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:pages="clr-namespace:SixRens.UI.MAUI.Pages"
+    xmlns:new="clr-namespace:SixRens.UI.MAUI.Pages.CaseCreation"
+    xmlns:cases="clr-namespace:SixRens.UI.MAUI.Pages.CaseManagement"
+    xmlns:main="clr-namespace:SixRens.UI.MAUI.Pages.Main"
+    xmlns:plugins="clr-namespace:SixRens.UI.MAUI.Pages.PluginManagement"
+    xmlns:settings="clr-namespace:SixRens.UI.MAUI.Pages.Settings"
     FlyoutBehavior="Disabled" >
 
     <TabBar>
@@ -11,32 +15,32 @@
         <ShellContent
             Title="起课"
             Icon="dotnet_bot.png"
-            ContentTemplate="{DataTemplate pages:CaseCreationPage}"
+            ContentTemplate="{DataTemplate new:CaseCreationPage}"
             Route="new" />
 
         <ShellContent
             Title="占例"
             Icon="dotnet_bot.png"
-            ContentTemplate="{DataTemplate pages:CaseManagementPage}"
+            ContentTemplate="{DataTemplate cases:CaseManagementPage}"
             Route="cases" />
 
         <ShellContent
             x:Name="mainPage"
             Title="盘面"
             Icon="dotnet_bot.png"
-            ContentTemplate="{DataTemplate pages:MainPage}"
+            ContentTemplate="{DataTemplate main:MainPage}"
             Route="main" />
 
         <ShellContent
             Title="插件"
             Icon="dotnet_bot.png"
-            ContentTemplate="{DataTemplate pages:PluginManagementPage}"
+            ContentTemplate="{DataTemplate plugins:PluginManagementPage}"
             Route="plugins" />
 
         <ShellContent
             Title="设置"
             Icon="dotnet_bot.png"
-            ContentTemplate="{DataTemplate pages:SettingsPage}"
+            ContentTemplate="{DataTemplate settings:SettingsPage}"
             Route="settings" />
         
     </TabBar>

@@ -8,7 +8,7 @@ using System.Diagnostics;
 using Xamarin.Google.Crypto.Tink.Prf;
 using static Android.Graphics.Path;
 
-namespace SixRens.UI.MAUI.Pages
+namespace SixRens.UI.MAUI.Pages.PluginManagement
 {
     public partial class PluginManagementPage : ContentPage
     {
