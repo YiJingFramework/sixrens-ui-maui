@@ -1,3 +1,4 @@
+using SixRens.UI.MAUI.Extensions;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace SixRens.UI.MAUI.Pages.Settings;
@@ -11,9 +12,6 @@ public partial class SettingsPage : ContentPage, IQueryAttributable
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        if (query.TryGetValue("text", out var t) && t is string s)
-        {
-            label.Text = s;
-        }
+        label.Text = query.GetValueOrDefault("text", "") as string;
     }
 }

@@ -1,20 +1,26 @@
 ﻿using AndroidX.Lifecycle;
+using SixRens.Core.占例存取;
+using SixRens.Core.壬式生成;
+using SixRens.UI.MAUI.Extensions;
 using SixRens.UI.MAUI.Services.ExceptionHandling;
 using SixRens.UI.MAUI.Services.SixRens;
 using static Android.App.Assist.AssistStructure;
 
 namespace SixRens.UI.MAUI.Pages.Main
 {
-    public partial class MainPage : ContentPage
+    public partial class MainPage : ContentPage, IQueryAttributable
     {
         private bool firstLoad;
-        private SixRensCore core;
+        private readonly SixRensCore core;
+        private readonly AppShell shell;
         private readonly ExceptionHandler exceptionHandler;
         public MainPage(
             SixRensCore core,
+            AppShell shell,
             ExceptionHandler exceptionHandler)
         {
             this.core = core;
+            this.shell = shell;
             this.exceptionHandler = exceptionHandler;
 
             firstLoad = true;
@@ -73,6 +79,17 @@ namespace SixRens.UI.MAUI.Pages.Main
                 if (install)
                     await core.InstallDefaultPresetsAsync();
             }
+        }
+
+        public void ApplyQueryAttributes(IDictionary<string, object> query)
+        {
+            var c = query.GetValueOrDefault("case", null) as 占例;
+            this.caseShowingGrid.BindingContext = c;
+        }
+
+        private async void GotoDivinationCreationPage(object sender, EventArgs e)
+        {
+            await shell.GoToAsync("//new");
         }
     }
 }
