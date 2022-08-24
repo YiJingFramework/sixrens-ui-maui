@@ -7,6 +7,7 @@ using SixRens.UI.MAUI.Pages.PluginManagement;
 using SixRens.UI.MAUI.Pages.Settings;
 using SixRens.UI.MAUI.Services.ExceptionHandling;
 using SixRens.UI.MAUI.Services.Paths;
+using SixRens.UI.MAUI.Services.Preferring;
 using SixRens.UI.MAUI.Services.SixRens;
 
 namespace SixRens.UI.MAUI
@@ -37,6 +38,9 @@ namespace SixRens.UI.MAUI
 
             _ = services.AddSingleton(FileSystem.Current);
             _ = services.AddSingleton<PathProvider>();
+
+            _ = services.AddSingleton(Preferences.Default);
+            _ = services.AddSingleton<PreferenceManager>();
 
             _ = services.AddSingleton(FilePicker.Default);
 

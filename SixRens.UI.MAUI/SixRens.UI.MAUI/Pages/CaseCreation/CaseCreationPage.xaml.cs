@@ -1,6 +1,7 @@
 using SixRens.Core.壬式生成;
 using SixRens.Core.年月日时;
 using SixRens.Core.插件管理.预设管理;
+using SixRens.UI.MAUI.Services.Preferring;
 using SixRens.UI.MAUI.Services.SixRens;
 using SixRens.UI.MAUI.Tools.Querying;
 using System.Text;
@@ -11,22 +12,19 @@ public partial class CaseCreationPage : ContentPage
 {
     readonly AppShell shell;
     readonly SixRensCore core;
-    public CaseCreationPage(SixRensCore core,AppShell shell)
+    readonly PreferenceManager preferenceManager;
+    public CaseCreationPage(SixRensCore core, AppShell shell, PreferenceManager preferenceManager)
     {
         this.core = core;
+        this.preferenceManager = preferenceManager;
 
         this.shell = shell;
         InitializeComponent();
-        
+
         RefreshDateTime();
         RefreshPresets();
-        
-        this.NavigatedFrom += this.OnNavigatedFrom;
-    }
 
-    private void OnNavigatedFrom(object sender, NavigatedFromEventArgs e)
-    {
-        RefreshPresets();
+        this.NavigatedFrom += (_, _) => RefreshPresets();
     }
 
     private void RefreshDateTime()
@@ -38,12 +36,15 @@ public partial class CaseCreationPage : ContentPage
     private void RefreshPresets()
     {
         this.presetCollectionView.ItemsSource = core.PresetManager.预设列表;
+        var lastUsed = preferenceManager.LastUsedPreset;
+        this.presetCollectionView.SelectedItem = 
+            core.PresetManager.预设列表.FirstOrDefault(p => p.预设名 == lastUsed, null);
     }
 
     private async void CreateCase(object sender, EventArgs e)
     {
-        var parsed = this.presetCollectionView.SelectedItem is 预设 preset ?
-             core.PluginPackageManager.解析预设(preset) : null;
+        var preset = this.presetCollectionView.SelectedItem as 预设;
+        var parsed = preset is null ? null : core.PluginPackageManager.解析预设(preset);
         if (parsed is null)
         {
             await this.DisplayAlert(
@@ -53,6 +54,8 @@ public partial class CaseCreationPage : ContentPage
         }
         else
         {
+            preferenceManager.LastUsedPreset = preset.预设名;
+
             StringBuilder stringBuilder = new();
             _ = stringBuilder.AppendLine("发现了以下问题，但仍然可以起课，要继续么？");
             var initial = stringBuilder.Length;
