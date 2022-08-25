@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ns="clr-namespace:SixRens.UI.MAUI.Pages.CaseCreation"
              xmlns:corepr="clr-namespace:SixRens.Core.插件管理.预设管理;assembly=SixRens.Core"
              x:Class="SixRens.UI.MAUI.Pages.CaseCreation.CaseCreationPage"
              Title="CaseCreationPage" >
     <VerticalStackLayout>
-        <DatePicker x:Name="datePicker" />
-        <TimePicker x:Name="timePicker"/>
-        <CollectionView
-            x:Name="presetCollectionView" 
-            SelectionMode="Single" >
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="corepr:预设">
-                    <Label Text="{Binding 预设名}"></Label>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+        <HorizontalStackLayout>
+            <Label Text="选择时间" />
+            <Editor x:Name="selectedDateTimeLabel"
+               x:DataType="ns:ShowingDateTime" 
+               Text="{Binding DisplayString}" 
+                   IsReadOnly="True" >
+                <Editor.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="SelectDateTime"/>
+                </Editor.GestureRecognizers>
+            </Editor>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Label Text="所用预设" />
+            <Picker
+                x:Name="presetCollectionView" 
+                x:DataType="corepr:预设"
+                ItemDisplayBinding="{Binding 预设名}" >
+            </Picker>
+        </HorizontalStackLayout>
         <Button
             Text="起课"
             Clicked="CreateCase" />

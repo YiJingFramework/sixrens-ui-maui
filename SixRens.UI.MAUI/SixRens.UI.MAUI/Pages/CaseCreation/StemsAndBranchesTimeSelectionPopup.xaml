@@ -1,0 +1,43 @@
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="SixRens.UI.MAUI.Pages.CaseCreation.StemsAndBranchesTimeSelectionPopup"
+               CanBeDismissedByTappingOutsideOfPopup="False" >
+
+    <ScrollView>
+        <VerticalStackLayout>
+            <HorizontalStackLayout>
+                <Label Text="年" />
+                <Picker x:Name="yearStemPicker" />
+                <Picker x:Name="yearBranchPicker" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout>
+                <Label Text="月" />
+                <Picker x:Name="monthStemPicker" />
+                <Picker x:Name="monthBranchPicker" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout>
+                <Label Text="日" />
+                <Picker x:Name="dateStemPicker" />
+                <Picker x:Name="dateBranchPicker" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout>
+                <Label Text="时" />
+                <Picker x:Name="timeStemPicker" />
+                <Picker x:Name="timeBranchPicker" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout>
+                <Label Text="进行检查" />
+                <CheckBox x:Name="checkBeforeCommitCheckBox" IsChecked="True" />
+            </HorizontalStackLayout>
+
+            <Label x:Name="checkResultLabel" />
+            <Button Text="确认" Clicked="Commit"/>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</toolkit:Popup>

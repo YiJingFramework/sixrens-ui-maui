@@ -1,3 +1,4 @@
+using CommunityToolkit.Maui.Views;
 using SixRens.Core.壬式生成;
 using SixRens.Core.年月日时;
 using SixRens.Core.插件管理.预设管理;
@@ -21,21 +22,19 @@ public partial class CaseCreationPage : ContentPage
         this.shell = shell;
         InitializeComponent();
 
-        RefreshDateTime();
+        SetDateTime(new(DateTime.Now));
         RefreshPresets();
 
         this.NavigatedFrom += (_, _) => RefreshPresets();
     }
 
-    private void RefreshDateTime()
+    private void SetDateTime(SelectedDateTime dateTime)
     {
-        var now = DateTime.Now;
-        this.datePicker.Date = now;
-        this.timePicker.Time = now - now.Date;
+        this.selectedDateTimeLabel.BindingContext = new ShowingDateTime(dateTime);
     }
     private void RefreshPresets()
     {
-        this.presetCollectionView.ItemsSource = core.PresetManager.预设列表;
+        this.presetCollectionView.ItemsSource = core.PresetManager.预设列表.ToArray();
         var lastUsed = preferenceManager.LastUsedPreset;
         this.presetCollectionView.SelectedItem = 
             core.PresetManager.预设列表.FirstOrDefault(p => p.预设名 == lastUsed, null);
@@ -79,14 +78,41 @@ public partial class CaseCreationPage : ContentPage
                     stringBuilder.ToString(),
                     "继续", "取消"))
             {
-                var dateTime = this.datePicker.Date + this.timePicker.Time;
+                var dateTime = (ShowingDateTime)selectedDateTimeLabel.BindingContext;
                 var plate = new 壬式(
-                    new 起课参数(new 真实年月日时(dateTime), null, Array.Empty<年命>()), parsed);
+                    new 起课参数(dateTime.DateTime.DateTimeInformation, null, Array.Empty<年命>()), parsed);
                 var dCase = plate.创建占例();
-                dCase.西历时间 = dateTime;
+                dCase.西历时间 = dateTime.DateTime.WesternDateTime;
                 var query = SingleParameterQuery
                     .Create(new Main.MainPageQueryParameters(null, dCase));
                 await shell.GoToAsync("//main", query);
+            }
+        }
+    }
+
+    private async void SelectDateTime(object sender, EventArgs e)
+    {
+        var current = (ShowingDateTime)selectedDateTimeLabel.BindingContext;
+
+        const string western = "通过西历";
+        const string stemsAndBranches = "通过干支";
+        var mode =
+            await this.DisplayActionSheet("选择模式：", "取消", null, western, stemsAndBranches);
+        switch (mode)
+        {
+            case western:
+            {
+                var result = (SelectedDateTime)
+                    await this.ShowPopupAsync(new WesternTimeSelectionPopup(current.DateTime));
+                this.SetDateTime(result);
+                break;
+            }
+            case stemsAndBranches:
+            {
+                var result = (SelectedDateTime)
+                    await this.ShowPopupAsync(new StemsAndBranchesTimeSelectionPopup(current.DateTime));
+                this.SetDateTime(result);
+                break;
             }
         }
     }
