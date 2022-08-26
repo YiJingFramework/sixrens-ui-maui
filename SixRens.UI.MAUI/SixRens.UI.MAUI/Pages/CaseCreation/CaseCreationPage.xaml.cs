@@ -1,11 +1,16 @@
 using CommunityToolkit.Maui.Views;
+using Kotlin.Time;
 using SixRens.Core.壬式生成;
 using SixRens.Core.年月日时;
 using SixRens.Core.插件管理.预设管理;
 using SixRens.UI.MAUI.Services.Preferring;
 using SixRens.UI.MAUI.Services.SixRens;
+using SixRens.UI.MAUI.Tools.Extensions;
 using SixRens.UI.MAUI.Tools.Querying;
+using System.ComponentModel;
+using System.Linq;
 using System.Text;
+using YiJingFramework.StemsAndBranches;
 
 namespace SixRens.UI.MAUI.Pages.CaseCreation;
 
@@ -14,35 +19,70 @@ public partial class CaseCreationPage : ContentPage
     readonly AppShell shell;
     readonly SixRensCore core;
     readonly PreferenceManager preferenceManager;
+
+    readonly BindingList<string> dayNightPickerItems;
+    readonly BindingList<string> theSunPickerItems;
     public CaseCreationPage(SixRensCore core, AppShell shell, PreferenceManager preferenceManager)
     {
         this.core = core;
         this.preferenceManager = preferenceManager;
 
         this.shell = shell;
+        
         InitializeComponent();
 
-        SetDateTime(new(DateTime.Now));
-        RefreshPresets();
+        dayNightPickerItems = new() {
+            "自动（无）",
+            "昼占",
+            "夜占"
+        };
+        this.dayNightPicker.ItemsSource = dayNightPickerItems;
+        this.dayNightPicker.SelectedIndex = 0;
 
-        this.NavigatedFrom += (_, _) => RefreshPresets();
+        theSunPickerItems = new();
+        theSunPickerItems.AddOneByOne(
+            Enumerable.Range(1, 12)
+            .Select(i => new EarthlyBranch(i).ToString("C"))
+            .Prepend("自动（无）"));
+        this.theSunPicker.ItemsSource = theSunPickerItems;
+        this.theSunPicker.SelectedIndex = 0;
+
+        SetDateTime(new(DateTime.Now));
+    }
+
+    protected override void OnNavigatedTo(NavigatedToEventArgs args)
+    {
+        base.OnNavigatedTo(args);
+
+        RefreshPresets();
     }
 
     private void SetDateTime(SelectedDateTime dateTime)
     {
         this.selectedDateTimeLabel.BindingContext = new ShowingDateTime(dateTime);
+        dayNightPickerItems[0] = dateTime.DateTimeInformation.昼占 ? "自动（昼占）" : "自动（夜占）";
+        if (dateTime.ProvidesTheSun)
+            theSunPickerItems[0] = dateTime.DateTimeInformation.月将.ToString("C");
+        else
+            theSunPickerItems[0] = "自动（无）";
     }
+
     private void RefreshPresets()
     {
-        this.presetCollectionView.ItemsSource = core.PresetManager.预设列表.ToArray();
-        var lastUsed = preferenceManager.LastUsedPreset;
-        this.presetCollectionView.SelectedItem = 
-            core.PresetManager.预设列表.FirstOrDefault(p => p.预设名 == lastUsed, null);
+        var presets = core.PresetManager.预设列表.ToArray();
+        this.presetPicker.ItemsSource = presets;
+
+        var lastUsed = preferenceManager.LastSelectedPreset;
+        var selected = presets.FirstOrDefault(p => p.预设名 == lastUsed, null);
+        if (selected is null && presets.Length is not 0)
+            selected = presets[0];
+        
+        this.presetPicker.SelectedItem = selected;
     }
 
     private async void CreateCase(object sender, EventArgs e)
     {
-        var preset = this.presetCollectionView.SelectedItem as 预设;
+        var preset = this.presetPicker.SelectedItem as 预设;
         var parsed = preset is null ? null : core.PluginPackageManager.解析预设(preset);
         if (parsed is null)
         {
@@ -53,8 +93,6 @@ public partial class CaseCreationPage : ContentPage
         }
         else
         {
-            preferenceManager.LastUsedPreset = preset.预设名;
-
             StringBuilder stringBuilder = new();
             _ = stringBuilder.AppendLine("发现了以下问题，但仍然可以起课，要继续么？");
             var initial = stringBuilder.Length;
@@ -104,16 +142,28 @@ public partial class CaseCreationPage : ContentPage
             {
                 var result = (SelectedDateTime)
                     await this.ShowPopupAsync(new WesternTimeSelectionPopup(current.DateTime));
-                this.SetDateTime(result);
+                if (result is not null)
+                    this.SetDateTime(result);
                 break;
             }
             case stemsAndBranches:
             {
                 var result = (SelectedDateTime)
                     await this.ShowPopupAsync(new StemsAndBranchesTimeSelectionPopup(current.DateTime));
-                this.SetDateTime(result);
+                if (result is not null)
+                    this.SetDateTime(result);
                 break;
             }
         }
     }
+
+    private void PresetSelected(object sender, EventArgs e)
+    {
+        if(presetPicker.SelectedItem is not null)
+        {
+            // 给 ItemsSource 赋值时会导致事件被触发。
+            preferenceManager.LastSelectedPreset = ((预设)presetPicker.SelectedItem).预设名;
+        }
+    }
+
 }

@@ -97,4 +97,9 @@ public partial class StemsAndBranchesTimeSelectionPopup : Popup
 
         this.Close(new SelectedDateTime(result));
     }
+
+    private void Cancel(object sender, EventArgs e)
+    {
+        this.Close(null);
+    }
 }

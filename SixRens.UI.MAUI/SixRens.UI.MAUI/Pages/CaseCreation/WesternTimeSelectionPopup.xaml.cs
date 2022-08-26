@@ -18,4 +18,8 @@ public partial class WesternTimeSelectionPopup : Popup
         var dateTime = this.datePicker.Date + this.timePicker.Time;
         this.Close(new SelectedDateTime(dateTime));
     }
+    private void Cancel(object sender, EventArgs e)
+    {
+        this.Close(null);
+    }
 }

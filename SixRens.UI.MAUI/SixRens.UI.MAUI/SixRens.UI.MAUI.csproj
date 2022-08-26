@@ -55,19 +55,4 @@
 	  <PackageReference Include="SixRens.Core" Version="1.17.0" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Compile Update="Pages\CaseCreation\StemsAndBranchesTimeSelectionPopup.xaml.cs">
-	    <DependentUpon>StemsAndBranchesTimeSelectionPopup.xaml</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiXaml Update="Pages\CaseCreation\StemsAndBranchesTimeSelectionPopup.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Pages\CaseCreation\WesternTimeSelectionPopup.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	</ItemGroup>
-
 </Project>

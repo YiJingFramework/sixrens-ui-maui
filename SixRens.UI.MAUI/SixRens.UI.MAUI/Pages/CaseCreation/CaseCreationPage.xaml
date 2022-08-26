@@ -17,14 +17,27 @@
                 </Editor.GestureRecognizers>
             </Editor>
         </HorizontalStackLayout>
+        
+        <HorizontalStackLayout>
+            <Label Text="自定昼夜" />
+            <Picker x:Name="dayNightPicker" />
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout>
+            <Label Text="自定月将" />
+            <Picker x:Name="theSunPicker" />
+        </HorizontalStackLayout>
+
         <HorizontalStackLayout>
             <Label Text="所用预设" />
             <Picker
-                x:Name="presetCollectionView" 
+                x:Name="presetPicker" 
                 x:DataType="corepr:预设"
-                ItemDisplayBinding="{Binding 预设名}" >
+                ItemDisplayBinding="{Binding 预设名}" 
+                SelectedIndexChanged="PresetSelected" >
             </Picker>
         </HorizontalStackLayout>
+        
         <Button
             Text="起课"
             Clicked="CreateCase" />

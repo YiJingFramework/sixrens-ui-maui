@@ -13,10 +13,10 @@ namespace SixRens.UI.MAUI.Services.Preferring
         {
             this.preferences = preferences;
         }
-        public string LastUsedPreset
+        public string LastSelectedPreset
         {
-            get => preferences.Get<string>(nameof(LastUsedPreset), null);
-            set => preferences.Set(nameof(LastUsedPreset), value);
+            get => preferences.Get<string>(nameof(LastSelectedPreset), null);
+            set => preferences.Set(nameof(LastSelectedPreset), value);
         }
         public void Clear()
         {

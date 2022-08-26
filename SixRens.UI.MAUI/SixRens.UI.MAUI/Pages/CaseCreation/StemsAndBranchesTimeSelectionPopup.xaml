@@ -36,6 +36,7 @@
             </HorizontalStackLayout>
 
             <Label x:Name="checkResultLabel" />
+            <Button Text="取消" Clicked="Cancel"/>
             <Button Text="确认" Clicked="Commit"/>
         </VerticalStackLayout>
     </ScrollView>
