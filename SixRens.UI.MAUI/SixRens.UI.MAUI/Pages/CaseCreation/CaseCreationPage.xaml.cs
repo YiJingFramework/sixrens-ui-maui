@@ -67,17 +67,28 @@ public partial class CaseCreationPage : ContentPage
             theSunPickerItems[0] = "自动（无）";
     }
 
+    // 给 ItemsSource 赋值时会导致选择 null ，故设一变量进行判断。
+    private bool isRefreshingPresets;
     private void RefreshPresets()
     {
+        isRefreshingPresets = true;
+
         var presets = core.PresetManager.预设列表.ToArray();
         this.presetPicker.ItemsSource = presets;
 
         var lastUsed = preferenceManager.LastSelectedPreset;
         var selected = presets.FirstOrDefault(p => p.预设名 == lastUsed, null);
-        if (selected is null && presets.Length is not 0)
-            selected = presets[0];
-        
-        this.presetPicker.SelectedItem = selected;
+        if (selected is not null)
+        {
+            this.presetPicker.SelectedItem = selected;
+            isRefreshingPresets = false;
+        }
+        else
+        {
+            isRefreshingPresets = false;
+            if (presets.Length > 0)
+                this.presetPicker.SelectedItem = presets[0];
+        }
     }
 
     private async void CreateCase(object sender, EventArgs e)
@@ -159,11 +170,12 @@ public partial class CaseCreationPage : ContentPage
 
     private void PresetSelected(object sender, EventArgs e)
     {
-        if(presetPicker.SelectedItem is not null)
-        {
-            // 给 ItemsSource 赋值时会导致事件被触发。
+        if(!isRefreshingPresets)
             preferenceManager.LastSelectedPreset = ((预设)presetPicker.SelectedItem).预设名;
-        }
     }
 
+    private async void AddGenderAndBirth(object sender, EventArgs e)
+    {
+        var result = await this.ShowPopupAsync(new GenderAndBirthSelectionPopup());
+    }
 }

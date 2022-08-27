@@ -55,4 +55,22 @@
 	  <PackageReference Include="SixRens.Core" Version="1.17.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Update="Pages\CaseCreation\WesternBirthTimeSelectionPopup.xaml.cs">
+	    <DependentUpon>WesternBirthTimeSelectionPopup.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\CaseCreation\GenderAndBirthSelectionPopup.xaml.cs">
+	    <DependentUpon>GenderAndBirthSelectionPopup.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Pages\CaseCreation\WesternBirthTimeSelectionPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\CaseCreation\GenderAndBirthSelectionPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>

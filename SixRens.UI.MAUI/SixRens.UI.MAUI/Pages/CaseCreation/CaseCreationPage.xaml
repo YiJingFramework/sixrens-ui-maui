@@ -37,7 +37,14 @@
                 SelectedIndexChanged="PresetSelected" >
             </Picker>
         </HorizontalStackLayout>
-        
+
+        <VerticalStackLayout>
+            <Button Text="添加年命" Clicked="AddGenderAndBirth"/>
+            <CollectionView>    
+                
+            </CollectionView>
+        </VerticalStackLayout>
+
         <Button
             Text="起课"
             Clicked="CreateCase" />
