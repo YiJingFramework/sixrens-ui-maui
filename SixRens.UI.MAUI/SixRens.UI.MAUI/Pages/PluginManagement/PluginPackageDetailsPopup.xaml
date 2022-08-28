@@ -1,4 +1,4 @@
-<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+﻿<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                xmlns:coreppm="clr-namespace:SixRens.Core.插件管理.插件包管理;assembly=SixRens.Core"

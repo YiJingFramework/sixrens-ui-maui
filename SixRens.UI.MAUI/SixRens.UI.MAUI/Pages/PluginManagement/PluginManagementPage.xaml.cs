@@ -1,7 +1,7 @@
-using CommunityToolkit.Maui.Views;
+ï»¿using CommunityToolkit.Maui.Views;
 using Java.Lang;
 using Microsoft.Maui.Storage;
-using SixRens.Core.²å¼ş¹ÜÀí.²å¼ş°ü¹ÜÀí;
+using SixRens.Core.æ’ä»¶ç®¡ç†.æ’ä»¶åŒ…ç®¡ç†;
 using SixRens.UI.MAUI.Services.SixRens;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -24,18 +24,18 @@ namespace SixRens.UI.MAUI.Pages.PluginManagement
             SyncWithCore();
         }
 
-        private ObservableCollection<²å¼ş°ü> packageCollectionViewItemSource;
+        private ObservableCollection<æ’ä»¶åŒ…> packageCollectionViewItemSource;
 
         private void SyncWithCore()
         {
-            this.packageCollectionViewItemSource = new(core.PluginPackageManager.²å¼ş°ü);
+            this.packageCollectionViewItemSource = new(core.PluginPackageManager.æ’ä»¶åŒ…);
             this.packageCollectionView.ItemsSource = this.packageCollectionViewItemSource;
         }
 
         private async void ShowPluginPackageDetails(object sender, EventArgs e)
         {
             var frame = (Frame)sender;
-            var package = (²å¼ş°ü)frame.BindingContext;
+            var package = (æ’ä»¶åŒ…)frame.BindingContext;
             var popupResult = (PluginPackageDetailsPopup.PopupResult)
                 await this.ShowPopupAsync(new PluginPackageDetailsPopup(package));
             switch (popupResult)
@@ -43,7 +43,7 @@ namespace SixRens.UI.MAUI.Pages.PluginManagement
                 case PluginPackageDetailsPopup.PopupResult.DeletionRequired:
                 {
                     await Task.Factory.StartNew(() => {
-                        core.PluginPackageManager.ÒÆ³ı²å¼ş°ü(package);
+                        core.PluginPackageManager.ç§»é™¤æ’ä»¶åŒ…(package);
                         _ = packageCollectionViewItemSource.Remove(package);
                     });
                     break;
@@ -54,9 +54,9 @@ namespace SixRens.UI.MAUI.Pages.PluginManagement
         private async void ClearPackages(object sender, EventArgs e)
         {
             await Task.Factory.StartNew(() => {
-                var packages = core.PluginPackageManager.²å¼ş°ü.ToArray();
+                var packages = core.PluginPackageManager.æ’ä»¶åŒ….ToArray();
                 foreach (var package in packages)
-                    core.PluginPackageManager.ÒÆ³ı²å¼ş°ü(package);
+                    core.PluginPackageManager.ç§»é™¤æ’ä»¶åŒ…(package);
                 packageCollectionViewItemSource.Clear();
             });
         }
@@ -64,9 +64,9 @@ namespace SixRens.UI.MAUI.Pages.PluginManagement
         private async void ClearPresets(object sender, EventArgs e)
         {
             await Task.Factory.StartNew(() => {
-                var presets = core.PresetManager.Ô¤ÉèÁĞ±í.ToArray();
+                var presets = core.PresetManager.é¢„è®¾åˆ—è¡¨.ToArray();
                 foreach (var preset in presets)
-                    core.PresetManager.É¾³ıÔ¤Éè(preset);
+                    core.PresetManager.åˆ é™¤é¢„è®¾(preset);
             });
         }
     }

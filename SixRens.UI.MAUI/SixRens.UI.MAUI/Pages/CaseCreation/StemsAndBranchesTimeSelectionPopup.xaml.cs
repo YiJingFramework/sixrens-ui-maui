@@ -1,5 +1,5 @@
-using CommunityToolkit.Maui.Views;
-using SixRens.Core.ÄêÔÂÈÕÊ±;
+ï»¿using CommunityToolkit.Maui.Views;
+using SixRens.Core.å¹´æœˆæ—¥æ—¶;
 using System;
 using System.Diagnostics;
 using System.Text;
@@ -30,15 +30,15 @@ public partial class StemsAndBranchesTimeSelectionPopup : Popup
 
         var dateTime = currentValue.DateTimeInformation;
 
-        this.yearStemPicker.SelectedIndex = dateTime.Äê¸É.Index - 1;
-        this.monthStemPicker.SelectedIndex = dateTime.ÔÂ¸É.Index - 1;
-        this.dateStemPicker.SelectedIndex = dateTime.ÈÕ¸É.Index - 1;
-        this.timeStemPicker.SelectedIndex = dateTime.Ê±¸É.Index - 1;
+        this.yearStemPicker.SelectedIndex = dateTime.å¹´å¹².Index - 1;
+        this.monthStemPicker.SelectedIndex = dateTime.æœˆå¹².Index - 1;
+        this.dateStemPicker.SelectedIndex = dateTime.æ—¥å¹².Index - 1;
+        this.timeStemPicker.SelectedIndex = dateTime.æ—¶å¹².Index - 1;
 
-        this.yearBranchPicker.SelectedIndex = dateTime.ÄêÖ§.Index - 1;
-        this.monthBranchPicker.SelectedIndex = dateTime.ÔÂÖ§.Index - 1;
-        this.dateBranchPicker.SelectedIndex = dateTime.ÈÕÖ§.Index - 1;
-        this.timeBranchPicker.SelectedIndex = dateTime.Ê±Ö§.Index - 1;
+        this.yearBranchPicker.SelectedIndex = dateTime.å¹´æ”¯.Index - 1;
+        this.monthBranchPicker.SelectedIndex = dateTime.æœˆæ”¯.Index - 1;
+        this.dateBranchPicker.SelectedIndex = dateTime.æ—¥æ”¯.Index - 1;
+        this.timeBranchPicker.SelectedIndex = dateTime.æ—¶æ”¯.Index - 1;
     }
 
     private void Commit(object sender, EventArgs e)
@@ -53,29 +53,29 @@ public partial class StemsAndBranchesTimeSelectionPopup : Popup
         var dateBranch = new EarthlyBranch(this.dateBranchPicker.SelectedIndex + 1);
         var timeBranch = new EarthlyBranch(this.timeBranchPicker.SelectedIndex + 1);
 
-        IÄêÔÂÈÕÊ±ĞÅÏ¢ result;
+        Iå¹´æœˆæ—¥æ—¶ä¿¡æ¯ result;
 
         if (checkBeforeCommitCheckBox.IsChecked)
         {
             StringBuilder problems = new();
 
-            var checkable = new ¿É¼ìÑéÄêÔÂÈÕÊ±(
+            var checkable = new å¯æ£€éªŒå¹´æœˆæ—¥æ—¶(
                 yearStem, yearBranch, monthBranch, dateStem, dateBranch, timeBranch,
                 timeBranch.Index is >= 4 and < 10, new());
-            Debug.Assert(checkable.¼ìÑéÖçÒ¹());
+            Debug.Assert(checkable.æ£€éªŒæ˜¼å¤œ());
 
-            if (!checkable.¼ìÑéÄêÈÕÒõÑô())
-                _ = problems.AppendLine("Äê»òÈÕµÄ¸ÉÖ§ÒõÑô²»Æ¥Åä");
+            if (!checkable.æ£€éªŒå¹´æ—¥é˜´é˜³())
+                _ = problems.AppendLine("å¹´æˆ–æ—¥çš„å¹²æ”¯é˜´é˜³ä¸åŒ¹é…");
 
-            if (checkable.ÔÂ¸É != monthStem)
+            if (checkable.æœˆå¹² != monthStem)
                 _ = problems.AppendLine(
-                    $"{yearStem:C}{yearBranch:C}ÄêÖĞÖ»´æÔÚ" +
-                    $"{checkable.ÔÂ¸É:C}{monthBranch:C}ÔÂ");
+                    $"{yearStem:C}{yearBranch:C}å¹´ä¸­åªå­˜åœ¨" +
+                    $"{checkable.æœˆå¹²:C}{monthBranch:C}æœˆ");
 
-            if (checkable.Ê±¸É != timeStem)
+            if (checkable.æ—¶å¹² != timeStem)
                 _ = problems.AppendLine(
-                    $"{dateStem:C}{dateBranch:C}ÈÕÖĞÖ»´æÔÚ" +
-                    $"{checkable.Ê±¸É:C}{timeBranch:C}Ê±");
+                    $"{dateStem:C}{dateBranch:C}æ—¥ä¸­åªå­˜åœ¨" +
+                    $"{checkable.æ—¶å¹²:C}{timeBranch:C}æ—¶");
 
             if (problems.Length is not 0)
             {
@@ -89,7 +89,7 @@ public partial class StemsAndBranchesTimeSelectionPopup : Popup
         }
         else
         {
-            result = new ×Ô¶¨ÒåÄêÔÂÈÕÊ±(
+            result = new è‡ªå®šä¹‰å¹´æœˆæ—¥æ—¶(
                 yearStem, yearBranch, monthStem, monthBranch,
                 dateStem, dateBranch, timeStem, timeBranch,
                 timeBranch.Index is >= 4 and < 10, new());

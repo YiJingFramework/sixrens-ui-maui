@@ -1,4 +1,4 @@
-namespace SixRens.UI.MAUI.Pages.CaseManagement;
+﻿namespace SixRens.UI.MAUI.Pages.CaseManagement;
 
 public partial class CaseManagementPage : ContentPage
 {

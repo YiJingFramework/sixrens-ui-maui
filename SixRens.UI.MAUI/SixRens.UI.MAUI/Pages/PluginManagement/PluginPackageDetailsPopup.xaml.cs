@@ -1,5 +1,5 @@
-using CommunityToolkit.Maui.Views;
-using SixRens.Core.²å¼ş¹ÜÀí.²å¼ş°ü¹ÜÀí;
+ï»¿using CommunityToolkit.Maui.Views;
+using SixRens.Core.æ’ä»¶ç®¡ç†.æ’ä»¶åŒ…ç®¡ç†;
 
 namespace SixRens.UI.MAUI.Pages.PluginManagement;
 
@@ -11,7 +11,7 @@ public partial class PluginPackageDetailsPopup : Popup
         DeletionRequired
     }
 	
-	public PluginPackageDetailsPopup(²å¼ş°ü package)
+	public PluginPackageDetailsPopup(æ’ä»¶åŒ… package)
     {
         this.ResultWhenUserTapsOutsideOfPopup = PopupResult.None;
 

@@ -1,4 +1,4 @@
-using CommunityToolkit.Maui.Views;
+﻿using CommunityToolkit.Maui.Views;
 using SixRens.UI.MAUI.Tools.Extensions;
 
 namespace SixRens.UI.MAUI.Pages.CaseCreation;

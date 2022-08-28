@@ -1,8 +1,8 @@
-using CommunityToolkit.Maui.Views;
+ï»¿using CommunityToolkit.Maui.Views;
 using Kotlin.Time;
-using SixRens.Core.ÈÉÊ½Éú³É;
-using SixRens.Core.ÄêÔÂÈÕÊ±;
-using SixRens.Core.²å¼ş¹ÜÀí.Ô¤Éè¹ÜÀí;
+using SixRens.Core.å£¬å¼ç”Ÿæˆ;
+using SixRens.Core.å¹´æœˆæ—¥æ—¶;
+using SixRens.Core.æ’ä»¶ç®¡ç†.é¢„è®¾ç®¡ç†;
 using SixRens.UI.MAUI.Services.Preferring;
 using SixRens.UI.MAUI.Services.SixRens;
 using SixRens.UI.MAUI.Tools.Extensions;
@@ -32,9 +32,9 @@ public partial class CaseCreationPage : ContentPage
         InitializeComponent();
 
         dayNightPickerItems = new() {
-            "×Ô¶¯£¨ÎŞ£©",
-            "ÖçÕ¼",
-            "Ò¹Õ¼"
+            "è‡ªåŠ¨ï¼ˆæ— ï¼‰",
+            "æ˜¼å ",
+            "å¤œå "
         };
         this.dayNightPicker.ItemsSource = dayNightPickerItems;
         this.dayNightPicker.SelectedIndex = 0;
@@ -43,7 +43,7 @@ public partial class CaseCreationPage : ContentPage
         theSunPickerItems.AddOneByOne(
             Enumerable.Range(1, 12)
             .Select(i => new EarthlyBranch(i).ToString("C"))
-            .Prepend("×Ô¶¯£¨ÎŞ£©"));
+            .Prepend("è‡ªåŠ¨ï¼ˆæ— ï¼‰"));
         this.theSunPicker.ItemsSource = theSunPickerItems;
         this.theSunPicker.SelectedIndex = 0;
 
@@ -60,24 +60,24 @@ public partial class CaseCreationPage : ContentPage
     private void SetDateTime(SelectedDateTime dateTime)
     {
         this.selectedDateTimeLabel.BindingContext = new ShowingDateTime(dateTime);
-        dayNightPickerItems[0] = dateTime.DateTimeInformation.ÖçÕ¼ ? "×Ô¶¯£¨ÖçÕ¼£©" : "×Ô¶¯£¨Ò¹Õ¼£©";
+        dayNightPickerItems[0] = dateTime.DateTimeInformation.æ˜¼å  ? "è‡ªåŠ¨ï¼ˆæ˜¼å ï¼‰" : "è‡ªåŠ¨ï¼ˆå¤œå ï¼‰";
         if (dateTime.ProvidesTheSun)
-            theSunPickerItems[0] = dateTime.DateTimeInformation.ÔÂ½«.ToString("C");
+            theSunPickerItems[0] = dateTime.DateTimeInformation.æœˆå°†.ToString("C");
         else
-            theSunPickerItems[0] = "×Ô¶¯£¨ÎŞ£©";
+            theSunPickerItems[0] = "è‡ªåŠ¨ï¼ˆæ— ï¼‰";
     }
 
-    // ¸ø ItemsSource ¸³ÖµÊ±»áµ¼ÖÂÑ¡Ôñ null £¬¹ÊÉèÒ»±äÁ¿½øĞĞÅĞ¶Ï¡£
+    // ç»™ ItemsSource èµ‹å€¼æ—¶ä¼šå¯¼è‡´é€‰æ‹© null ï¼Œæ•…è®¾ä¸€å˜é‡è¿›è¡Œåˆ¤æ–­ã€‚
     private bool isRefreshingPresets;
     private void RefreshPresets()
     {
         isRefreshingPresets = true;
 
-        var presets = core.PresetManager.Ô¤ÉèÁĞ±í.ToArray();
+        var presets = core.PresetManager.é¢„è®¾åˆ—è¡¨.ToArray();
         this.presetPicker.ItemsSource = presets;
 
         var lastUsed = preferenceManager.LastSelectedPreset;
-        var selected = presets.FirstOrDefault(p => p.Ô¤ÉèÃû == lastUsed, null);
+        var selected = presets.FirstOrDefault(p => p.é¢„è®¾å == lastUsed, null);
         if (selected is not null)
         {
             this.presetPicker.SelectedItem = selected;
@@ -93,45 +93,45 @@ public partial class CaseCreationPage : ContentPage
 
     private async void CreateCase(object sender, EventArgs e)
     {
-        var preset = this.presetPicker.SelectedItem as Ô¤Éè;
-        var parsed = preset is null ? null : core.PluginPackageManager.½âÎöÔ¤Éè(preset);
+        var preset = this.presetPicker.SelectedItem as é¢„è®¾;
+        var parsed = preset is null ? null : core.PluginPackageManager.è§£æé¢„è®¾(preset);
         if (parsed is null)
         {
             await this.DisplayAlert(
-                "²»¿ÉÓÃµÄÔ¤Éè", 
-                "´ËÔ¤Éè²»¿ÉÓÃ£¬Çë¼ì²éÔ¤ÉèÊÇ·ñÑ¡ÔñÍêÕû£¬²¢È·±£°²×°ÁË¶ÔÓ¦²å¼ş", 
-                "È·¶¨");
+                "ä¸å¯ç”¨çš„é¢„è®¾", 
+                "æ­¤é¢„è®¾ä¸å¯ç”¨ï¼Œè¯·æ£€æŸ¥é¢„è®¾æ˜¯å¦é€‰æ‹©å®Œæ•´ï¼Œå¹¶ç¡®ä¿å®‰è£…äº†å¯¹åº”æ’ä»¶", 
+                "ç¡®å®š");
         }
         else
         {
             StringBuilder stringBuilder = new();
-            _ = stringBuilder.AppendLine("·¢ÏÖÁËÒÔÏÂÎÊÌâ£¬µ«ÈÔÈ»¿ÉÒÔÆğ¿Î£¬Òª¼ÌĞøÃ´£¿");
+            _ = stringBuilder.AppendLine("å‘ç°äº†ä»¥ä¸‹é—®é¢˜ï¼Œä½†ä»ç„¶å¯ä»¥èµ·è¯¾ï¼Œè¦ç»§ç»­ä¹ˆï¼Ÿ");
             var initial = stringBuilder.Length;
 
-            if (parsed.´æÔÚÎ´ÏÔÊ½Ö¸¶¨µÄ¿ÎÌå)
-                _ = stringBuilder.AppendLine("´æÔÚÎ´ÏÔÊ½Ö¸¶¨µÄ¿ÎÌå£¨ÊÓÎªÆôÓÃ£©");
-            if (parsed.´æÔÚÖ¸¶¨ÆôÓÃµ«Î´ÕÒµ½µÄ¿ÎÌå)
-                _ = stringBuilder.AppendLine("´æÔÚÖ¸¶¨ÆôÓÃµ«Î´ÕÒµ½µÄ¿ÎÌå£¨ÊÓÎª½ûÓÃ£©");
-            if (parsed.´æÔÚÍ¬Ê±Ö¸¶¨ÁËÆôÓÃºÍ½ûÓÃµÄÉñÉ·)
-                _ = stringBuilder.AppendLine("´æÔÚÍ¬Ê±Ö¸¶¨ÁËÆôÓÃºÍ½ûÓÃµÄÉñÉ·£¨ÊÓÎª½ûÓÃ£©");
-            if (parsed.´æÔÚÎ´ÏÔÊ½Ö¸¶¨µÄÉñÉ·)
-                _ = stringBuilder.AppendLine("´æÔÚÎ´ÏÔÊ½Ö¸¶¨µÄÉñÉ·£¨ÊÓÎªÆôÓÃ£©");
-            if (parsed.´æÔÚÖ¸¶¨ÆôÓÃµ«Î´ÕÒµ½µÄÉñÉ·)
-                _ = stringBuilder.AppendLine("´æÔÚÖ¸¶¨ÆôÓÃµ«Î´ÕÒµ½µÄÉñÉ·£¨ÊÓÎª½ûÓÃ£©");
-            if (parsed.´æÔÚÍ¬Ê±Ö¸¶¨ÁËÆôÓÃºÍ½ûÓÃµÄ¿ÎÌå)
-                _ = stringBuilder.AppendLine("´æÔÚÍ¬Ê±Ö¸¶¨ÁËÆôÓÃºÍ½ûÓÃµÄ¿ÎÌå£¨ÊÓÎª½ûÓÃ£©");
+            if (parsed.å­˜åœ¨æœªæ˜¾å¼æŒ‡å®šçš„è¯¾ä½“)
+                _ = stringBuilder.AppendLine("å­˜åœ¨æœªæ˜¾å¼æŒ‡å®šçš„è¯¾ä½“ï¼ˆè§†ä¸ºå¯ç”¨ï¼‰");
+            if (parsed.å­˜åœ¨æŒ‡å®šå¯ç”¨ä½†æœªæ‰¾åˆ°çš„è¯¾ä½“)
+                _ = stringBuilder.AppendLine("å­˜åœ¨æŒ‡å®šå¯ç”¨ä½†æœªæ‰¾åˆ°çš„è¯¾ä½“ï¼ˆè§†ä¸ºç¦ç”¨ï¼‰");
+            if (parsed.å­˜åœ¨åŒæ—¶æŒ‡å®šäº†å¯ç”¨å’Œç¦ç”¨çš„ç¥ç…)
+                _ = stringBuilder.AppendLine("å­˜åœ¨åŒæ—¶æŒ‡å®šäº†å¯ç”¨å’Œç¦ç”¨çš„ç¥ç…ï¼ˆè§†ä¸ºç¦ç”¨ï¼‰");
+            if (parsed.å­˜åœ¨æœªæ˜¾å¼æŒ‡å®šçš„ç¥ç…)
+                _ = stringBuilder.AppendLine("å­˜åœ¨æœªæ˜¾å¼æŒ‡å®šçš„ç¥ç…ï¼ˆè§†ä¸ºå¯ç”¨ï¼‰");
+            if (parsed.å­˜åœ¨æŒ‡å®šå¯ç”¨ä½†æœªæ‰¾åˆ°çš„ç¥ç…)
+                _ = stringBuilder.AppendLine("å­˜åœ¨æŒ‡å®šå¯ç”¨ä½†æœªæ‰¾åˆ°çš„ç¥ç…ï¼ˆè§†ä¸ºç¦ç”¨ï¼‰");
+            if (parsed.å­˜åœ¨åŒæ—¶æŒ‡å®šäº†å¯ç”¨å’Œç¦ç”¨çš„è¯¾ä½“)
+                _ = stringBuilder.AppendLine("å­˜åœ¨åŒæ—¶æŒ‡å®šäº†å¯ç”¨å’Œç¦ç”¨çš„è¯¾ä½“ï¼ˆè§†ä¸ºç¦ç”¨ï¼‰");
 
             if (stringBuilder.Length == initial || 
                 await this.DisplayAlert(
-                    "·¢ÏÖÎÊÌâ",
+                    "å‘ç°é—®é¢˜",
                     stringBuilder.ToString(),
-                    "¼ÌĞø", "È¡Ïû"))
+                    "ç»§ç»­", "å–æ¶ˆ"))
             {
                 var dateTime = (ShowingDateTime)selectedDateTimeLabel.BindingContext;
-                var plate = new ÈÉÊ½(
-                    new Æğ¿Î²ÎÊı(dateTime.DateTime.DateTimeInformation, null, Array.Empty<ÄêÃü>()), parsed);
-                var dCase = plate.´´½¨Õ¼Àı();
-                dCase.Î÷ÀúÊ±¼ä = dateTime.DateTime.WesternDateTime;
+                var plate = new å£¬å¼(
+                    new èµ·è¯¾å‚æ•°(dateTime.DateTime.DateTimeInformation, null, Array.Empty<å¹´å‘½>()), parsed);
+                var dCase = plate.åˆ›å»ºå ä¾‹();
+                dCase.è¥¿å†æ—¶é—´ = dateTime.DateTime.WesternDateTime;
                 var query = SingleParameterQuery
                     .Create(new Main.MainPageQueryParameters(null, dCase));
                 await shell.GoToAsync("//main", query);
@@ -143,10 +143,10 @@ public partial class CaseCreationPage : ContentPage
     {
         var current = (ShowingDateTime)selectedDateTimeLabel.BindingContext;
 
-        const string western = "Í¨¹ıÎ÷Àú";
-        const string stemsAndBranches = "Í¨¹ı¸ÉÖ§";
+        const string western = "é€šè¿‡è¥¿å†";
+        const string stemsAndBranches = "é€šè¿‡å¹²æ”¯";
         var mode =
-            await this.DisplayActionSheet("Ñ¡ÔñÄ£Ê½£º", "È¡Ïû", null, western, stemsAndBranches);
+            await this.DisplayActionSheet("é€‰æ‹©æ¨¡å¼ï¼š", "å–æ¶ˆ", null, western, stemsAndBranches);
         switch (mode)
         {
             case western:
@@ -171,7 +171,7 @@ public partial class CaseCreationPage : ContentPage
     private void PresetSelected(object sender, EventArgs e)
     {
         if(!isRefreshingPresets)
-            preferenceManager.LastSelectedPreset = ((Ô¤Éè)presetPicker.SelectedItem).Ô¤ÉèÃû;
+            preferenceManager.LastSelectedPreset = ((é¢„è®¾)presetPicker.SelectedItem).é¢„è®¾å;
     }
 
     private async void AddGenderAndBirth(object sender, EventArgs e)
