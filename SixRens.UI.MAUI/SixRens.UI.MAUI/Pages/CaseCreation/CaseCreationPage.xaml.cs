@@ -20,8 +20,6 @@ public partial class CaseCreationPage : ContentPage
     readonly SixRensCore core;
     readonly PreferenceManager preferenceManager;
 
-    readonly BindingList<string> dayNightPickerItems;
-    readonly BindingList<string> theSunPickerItems;
     public CaseCreationPage(SixRensCore core, AppShell shell, PreferenceManager preferenceManager)
     {
         this.core = core;
@@ -31,20 +29,17 @@ public partial class CaseCreationPage : ContentPage
         
         InitializeComponent();
 
-        dayNightPickerItems = new() {
+        this.dayNightPicker.Items.AddOneByOne(new[] {
             "自动（无）",
             "昼占",
             "夜占"
-        };
-        this.dayNightPicker.ItemsSource = dayNightPickerItems;
+        });
         this.dayNightPicker.SelectedIndex = 0;
 
-        theSunPickerItems = new();
-        theSunPickerItems.AddOneByOne(
+        theSunPicker.Items.AddOneByOne(
             Enumerable.Range(1, 12)
             .Select(i => new EarthlyBranch(i).ToString("C"))
             .Prepend("自动（无）"));
-        this.theSunPicker.ItemsSource = theSunPickerItems;
         this.theSunPicker.SelectedIndex = 0;
 
         SetDateTime(new(DateTime.Now));
@@ -60,11 +55,22 @@ public partial class CaseCreationPage : ContentPage
     private void SetDateTime(SelectedDateTime dateTime)
     {
         this.selectedDateTimeLabel.BindingContext = new ShowingDateTime(dateTime);
-        dayNightPickerItems[0] = dateTime.DateTimeInformation.昼占 ? "自动（昼占）" : "自动（夜占）";
+        dayNightPicker.Items[0] = dateTime.DateTimeInformation.昼占 ? "自动（昼占）" : "自动（夜占）";
+        if(dayNightPicker.SelectedIndex is 0)
+        {
+            dayNightPicker.SelectedIndex = -1;
+            dayNightPicker.SelectedIndex = 0;
+        }
+
         if (dateTime.ProvidesTheSun)
-            theSunPickerItems[0] = dateTime.DateTimeInformation.月将.ToString("C");
+            theSunPicker.Items[0] = $"自动（{dateTime.DateTimeInformation.月将:C}）";
         else
-            theSunPickerItems[0] = "自动（无）";
+            theSunPicker.Items[0] = "自动（无）";
+        if (theSunPicker.SelectedIndex is 0)
+        {
+            theSunPicker.SelectedIndex = -1;
+            theSunPicker.SelectedIndex = 0;
+        }
     }
 
     // 给 ItemsSource 赋值时会导致选择 null ，故设一变量进行判断。
@@ -93,6 +99,29 @@ public partial class CaseCreationPage : ContentPage
 
     private async void CreateCase(object sender, EventArgs e)
     {
+        var dateTime = (ShowingDateTime)selectedDateTimeLabel.BindingContext;
+        var modifiedDateTime = dateTime.DateTime.DateTimeInformation;
+        if (theSunPicker.SelectedIndex is 0)
+        {
+            if(!dateTime.DateTime.ProvidesTheSun)
+            {
+                await this.DisplayAlert(
+                    "没有选择月将",
+                    "无法自动确定月将，需要手动选择。",
+                    "确定");
+                return;
+            }
+        }
+        else
+        {
+            modifiedDateTime = modifiedDateTime.修改信息(
+                月将: new(theSunPicker.SelectedIndex));
+        }
+
+        if (dayNightPicker.SelectedIndex is not 0)
+            modifiedDateTime = modifiedDateTime.修改信息(
+                昼占: dayNightPicker.SelectedIndex is 1);
+
         var preset = this.presetPicker.SelectedItem as 预设;
         var parsed = preset is null ? null : core.PluginPackageManager.解析预设(preset);
         if (parsed is null)
@@ -127,11 +156,14 @@ public partial class CaseCreationPage : ContentPage
                     stringBuilder.ToString(),
                     "继续", "取消"))
             {
-                var dateTime = (ShowingDateTime)selectedDateTimeLabel.BindingContext;
                 var plate = new 壬式(
-                    new 起课参数(dateTime.DateTime.DateTimeInformation, null, Array.Empty<年命>()), parsed);
+                    new 起课参数(modifiedDateTime,
+                    null, Array.Empty<年命>()),
+                    parsed);
                 var dCase = plate.创建占例();
                 dCase.西历时间 = dateTime.DateTime.WesternDateTime;
+#warning 下一行只是为测试用
+                dCase.断语 = dCase.可读文本化();
                 var query = SingleParameterQuery
                     .Create(new Main.MainPageQueryParameters(null, dCase));
                 await shell.GoToAsync("//main", query);

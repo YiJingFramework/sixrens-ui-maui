@@ -15,9 +15,7 @@
             </Grid>
 
             <Grid x:Name="caseShowingGrid" x:DataType="ns:BindingCase" IsVisible="False">
-                <Label Text="{Binding Name}"></Label>
-                <Label Text="{Binding DateTime}"></Label>
-                <Label Text="{Binding Plate.三传.初传}"></Label>
+                <Label Text="{Binding Text}"></Label>
             </Grid>
 
         </VerticalStackLayout>
