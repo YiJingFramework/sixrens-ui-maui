@@ -33,7 +33,7 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon Include="Resources\AppIcon\app_icon.svg" />
 
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
@@ -50,27 +50,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\AppIcon\appiconfg.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Maui" Version="1.2.0" />
 	  <PackageReference Include="LiteDB" Version="5.0.12" />
 	  <PackageReference Include="SixRens.Core" Version="1.17.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Compile Update="Pages\CaseCreation\WesternBirthTimeSelectionPopup.xaml.cs">
-	    <DependentUpon>WesternBirthTimeSelectionPopup.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Pages\CaseCreation\GenderAndBirthSelectionPopup.xaml.cs">
-	    <DependentUpon>GenderAndBirthSelectionPopup.xaml</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiXaml Update="Pages\CaseCreation\WesternBirthTimeSelectionPopup.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Pages\CaseCreation\GenderAndBirthSelectionPopup.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	</ItemGroup>
 
 </Project>
