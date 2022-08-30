@@ -75,6 +75,8 @@ public partial class TimeSelectionPage : ContentPage
             this.monthBranchPicker.SelectedIndex = dateTime.月支.Index - 1;
             this.dateBranchPicker.SelectedIndex = dateTime.日支.Index - 1;
             this.timeBranchPicker.SelectedIndex = dateTime.时支.Index - 1;
+
+            checkResultLabel.Text = string.Empty;
         }
     }
     private void OnModePickerIndexChanged(object sender, EventArgs e)
@@ -117,16 +119,18 @@ public partial class TimeSelectionPage : ContentPage
 
             if (!checkable.检验年日阴阳())
                 _ = problems.AppendLine("年或日的干支阴阳不匹配");
+            else // 既然年日不正确，就不应该再判断月时了
+            {
+                if (checkable.月干 != monthStem)
+                    _ = problems.AppendLine(
+                        $"{yearStem:C}{yearBranch:C}年中只存在" +
+                        $"{checkable.月干:C}{monthBranch:C}月");
 
-            if (checkable.月干 != monthStem)
-                _ = problems.AppendLine(
-                    $"{yearStem:C}{yearBranch:C}年中只存在" +
-                    $"{checkable.月干:C}{monthBranch:C}月");
-
-            if (checkable.时干 != timeStem)
-                _ = problems.AppendLine(
-                    $"{dateStem:C}{dateBranch:C}日中只存在" +
-                    $"{checkable.时干:C}{timeBranch:C}时");
+                if (checkable.时干 != timeStem)
+                    _ = problems.AppendLine(
+                        $"{dateStem:C}{dateBranch:C}日中只存在" +
+                        $"{checkable.时干:C}{timeBranch:C}时");
+            }
 
             if (problems.Length is not 0)
             {
