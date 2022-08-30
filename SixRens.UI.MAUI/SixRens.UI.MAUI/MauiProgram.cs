@@ -17,13 +17,13 @@ namespace SixRens.UI.MAUI
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
-            _ = builder
-                .UseMauiApp<App>()
-                .ConfigureFonts(fonts => {
-                    _ = fonts.AddFont("HongLeiBanShu.ttf", "HongLei");
-                })
-                .UseMauiCommunityToolkit()
-                ;
+
+            _ = builder.UseMauiApp<App>();
+            _ = builder.ConfigureFonts(fonts => {
+                _ = fonts.AddFont("HongLeiBanShu.ttf", "HongLei");
+            });
+
+            _ = builder.UseMauiCommunityToolkit();
 
             RegisterServices(builder.Services);
             RegisterPages(builder.Services);
