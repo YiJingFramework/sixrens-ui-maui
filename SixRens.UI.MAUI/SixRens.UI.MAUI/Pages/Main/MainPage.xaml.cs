@@ -37,49 +37,10 @@ namespace SixRens.UI.MAUI.Pages.Main
             firstLoad = false;
 
             await exceptionHandler.SetDisplayPageAsync(this);
-            await DetectShowInstallDefaultPopupsAsync();
-        }
 
-        private async Task DetectShowInstallDefaultPopupsAsync()
-        {
-            var withoutPlugins = core.PluginPackageManager.插件包.Count is 0;
-             var withoutPresets = core.PresetManager.预设列表.Count is 0;
-            if (withoutPlugins)
-            {
-                if (withoutPresets)
-                {
-                    // 两者都要
-                    var install = await DisplayAlert(
-                        "自动配置",
-                        "检测到您没有配置任何插件包和预设，是否安装默认配置？",
-                        "安装", "稍后");
-                    if (install)
-                    {
-                        _ = await core.InstallDefaultPluginsAsync();
-                        await core.InstallDefaultPresetsAsync();
-                    }
-                }
-                else
-                {
-                    // 仅插件包
-                    var install = await DisplayAlert(
-                        "自动配置",
-                        "检测到您没有任何插件包，是否安装默认插件包？",
-                        "安装", "稍后");
-                    if (install)
-                        _ = await core.InstallDefaultPluginsAsync();
-                }
-            }
-            else if (withoutPresets)
-            {
-                // 仅预设
-                var install = await DisplayAlert(
-                    "自动配置",
-                    "检测到您没有任何预设，是否导入默认预设？",
-                    "导入", "稍后");
-                if (install)
-                    await core.InstallDefaultPresetsAsync();
-            }
+            var promptPage = InstallDefaultsPromptPage.CreatePageIfRequired(core, shell);
+            if (promptPage is not null)
+                await shell.Navigation.PushAsync(promptPage);
         }
 
         void IQueryAttributable<MainPageQueryParameters>.ApplyQueryParameter(
