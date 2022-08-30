@@ -10,8 +10,29 @@ using YiJingFramework.StemsAndBranches;
 
 namespace SixRens.UI.MAUI.Pages.CaseCreation
 {
-    public sealed record BirthInformation(性别 Gender, EarthlyBranch Birth, EarthlyBranch? Age)
+    public sealed class BirthInformation
     {
+        public 性别 Gender { get; }
+        public EarthlyBranch Birth { get; }
+        public EarthlyBranch? Age { get; }
+        public BirthInformation(性别 gender, EarthlyBranch birth, EarthlyBranch? age)
+        {
+            this.Gender = gender;
+            this.Birth = birth;
+            this.Age = age;
+        }
+
+        public override int GetHashCode()
+        {
+            // 即使所有字段相同，也不可以视为一个对象，否则会导致删除功能出现问题。
+            return base.GetHashCode();
+        }
+        public override bool Equals(object obj)
+        {
+            // 即使所有字段相同，也不可以视为一个对象，否则会导致删除功能出现问题。
+            return base.Equals(obj);
+        }
+
         public string DisplayString
         {
             get

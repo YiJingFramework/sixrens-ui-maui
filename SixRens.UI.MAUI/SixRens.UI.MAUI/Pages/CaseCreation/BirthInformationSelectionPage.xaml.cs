@@ -98,4 +98,19 @@ public partial class BirthInformationSelectionPage : ContentPage
             new(this.ownerBinding.FirstOrDefault(defaultValue: null), this.notOwnerBinding));
         _ = await shell.Navigation.PopAsync();
     }
+
+    private void OnDeleteButtonClicked(object sender, EventArgs e)
+    {
+        var button = (Button)sender;
+        var birthInformation = (BirthInformation)button.BindingContext;
+        if(this.ownerBinding.Remove(birthInformation))
+        {
+            this.asOwnerPicker.SelectedIndex = 0;
+        }
+        else
+        {
+            var result = this.notOwnerBinding.Remove(birthInformation);
+            Debug.Assert(result is true);
+        }
+    }
 }

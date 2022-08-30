@@ -42,7 +42,12 @@
                 </CollectionView.GroupHeaderTemplate>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="ns:BirthInformation">
-                        <Label Text="{Binding DisplayString}" />
+                        <Frame>
+                            <HorizontalStackLayout>
+                                <Label Text="{Binding DisplayString}" />
+                                <Button Text="删除" BindingContext="{Binding .}" Clicked="OnDeleteButtonClicked" />
+                            </HorizontalStackLayout>
+                        </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
