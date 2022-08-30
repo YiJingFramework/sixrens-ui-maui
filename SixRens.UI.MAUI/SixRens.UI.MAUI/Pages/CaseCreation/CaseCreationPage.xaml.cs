@@ -29,10 +29,10 @@ namespace SixRens.UI.MAUI.Pages.CaseCreation
             InitializeComponent();
 
             this.dayNightPicker.Items.AddOneByOne(new[] {
-            "自动（无）",
-            "昼占",
-            "夜占"
-        });
+                "自动（无）",
+                "昼占",
+                "夜占"
+            });
             this.dayNightPicker.SelectedIndex = 0;
 
             theSunPicker.Items.AddOneByOne(
@@ -42,6 +42,7 @@ namespace SixRens.UI.MAUI.Pages.CaseCreation
             this.theSunPicker.SelectedIndex = 0;
 
             SetDateTime(new(DateTime.Now));
+            SetBirthInformationList(new(null, Array.Empty<BirthInformation>()));
         }
 
         protected override void OnNavigatedTo(NavigatedToEventArgs args)
@@ -53,7 +54,7 @@ namespace SixRens.UI.MAUI.Pages.CaseCreation
 
         private void SetDateTime(SelectedDateTime dateTime)
         {
-            this.selectedDateTimeLabel.BindingContext = new ShowingDateTime(dateTime);
+            this.selectedDateTimeEditor.BindingContext = new ShowingDateTime(dateTime);
             dayNightPicker.Items[0] = dateTime.DateTimeInformation.昼占 ? "自动（昼占）" : "自动（夜占）";
             if (dayNightPicker.SelectedIndex is 0)
             {
@@ -70,6 +71,12 @@ namespace SixRens.UI.MAUI.Pages.CaseCreation
                 theSunPicker.SelectedIndex = -1;
                 theSunPicker.SelectedIndex = 0;
             }
+        }
+
+        private void SetBirthInformationList(SelectedBirthInformationList informationList)
+        {
+            this.selectedBirthInformationEditor.BindingContext =
+                new ShowingBirthInformationList(informationList);
         }
 
         // 给 ItemsSource 赋值时会导致选择 null ，故设一变量进行判断。
@@ -98,7 +105,7 @@ namespace SixRens.UI.MAUI.Pages.CaseCreation
 
         private async void CreateCase(object sender, EventArgs e)
         {
-            var dateTime = (ShowingDateTime)selectedDateTimeLabel.BindingContext;
+            var dateTime = (ShowingDateTime)selectedDateTimeEditor.BindingContext;
             var modifiedDateTime = dateTime.DateTime.DateTimeInformation;
             if (theSunPicker.SelectedIndex is 0)
             {
@@ -155,9 +162,14 @@ namespace SixRens.UI.MAUI.Pages.CaseCreation
                         stringBuilder.ToString(),
                         "继续", "取消"))
                 {
+                    var birthInformations =
+                        ((ShowingBirthInformationList)selectedBirthInformationEditor.BindingContext)
+                        .Information;
                     var plate = new 壬式(
-                        new 起课参数(modifiedDateTime,
-                        null, Array.Empty<年命>()),
+                        new 起课参数(
+                            modifiedDateTime,
+                            birthInformations.PlateOwners?.ToCoreInformation(modifiedDateTime),
+                            birthInformations.Others.Select(i => i.ToCoreInformation(modifiedDateTime))),
                         parsed);
                     var dCase = plate.创建占例();
                     dCase.西历时间 = dateTime.DateTime.WesternDateTime;
@@ -176,7 +188,7 @@ namespace SixRens.UI.MAUI.Pages.CaseCreation
             if (timeSelectionPage is null)
                 timeSelectionPage = new TimeSelectionPage(this.SetDateTime, shell);
 
-            var current = (ShowingDateTime)selectedDateTimeLabel.BindingContext;
+            var current = (ShowingDateTime)selectedDateTimeEditor.BindingContext;
             timeSelectionPage.ApplySelectedDateTime(current.DateTime);
             await this.shell.Navigation.PushAsync(timeSelectionPage);
         }
@@ -187,9 +199,15 @@ namespace SixRens.UI.MAUI.Pages.CaseCreation
                 preferenceManager.LastSelectedPreset = ((预设)presetPicker.SelectedItem).预设名;
         }
 
-        private async void AddGenderAndBirth(object sender, EventArgs e)
+        private BirthInformationSelectionPage birthInformationSelectionPage;
+        private async void SelectBirthInformation(object sender, EventArgs e)
         {
-            var result = await this.ShowPopupAsync(new GenderAndBirthSelectionPopup());
+            if (birthInformationSelectionPage is null)
+                birthInformationSelectionPage = new(this.SetBirthInformationList, shell);
+
+            var current = (ShowingBirthInformationList)selectedBirthInformationEditor.BindingContext;
+            birthInformationSelectionPage.ApplySelectedBirthInformation(current.Information);
+            await this.shell.Navigation.PushAsync(birthInformationSelectionPage);
         }
     }
 }

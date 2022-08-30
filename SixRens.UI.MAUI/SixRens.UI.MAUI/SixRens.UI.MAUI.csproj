@@ -59,16 +59,4 @@
 	  <PackageReference Include="SixRens.Core" Version="1.17.0" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Compile Update="Pages\CaseCreation\TimeSelectionPage.xaml.cs">
-	    <DependentUpon>TimeSelectionPage.xaml</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiXaml Update="Pages\CaseCreation\TimeSelectionPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	</ItemGroup>
-
 </Project>

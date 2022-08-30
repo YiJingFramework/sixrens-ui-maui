@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ns="clr-namespace:SixRens.UI.MAUI.Pages.CaseCreation"
+             xmlns:coregen="clr-namespace:SixRens.Core.壬式生成;assembly=SixRens.Core"
+             x:Class="SixRens.UI.MAUI.Pages.CaseCreation.BirthInformationSelectionPage"
+             Title="起课 - 配置年命" >
+    <ScrollView>
+        <VerticalStackLayout>
+            <Label Text="性别" />
+            <Picker x:Name="genderPicker" >
+                <Picker.Items>
+                    <x:String>阴</x:String>
+                    <x:String>阳</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <Label Text="本命" />
+            <Picker x:Name="birthPicker" >
+            </Picker>
+
+            <Label Text="行年" />
+            <Picker x:Name="agePicker" >
+            </Picker>
+
+            <Picker x:Name="asOwnerPicker" SelectedIndex="0">
+                <Picker.Items>
+                    <x:String>课主</x:String>
+                    <x:String>非课主</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <Button Text="添加" Clicked="AddItemClicked" />
+            
+            <Button Text="确定" Clicked="OnCommitClicked" />
+
+            <CollectionView x:Name="collectionView" IsGrouped="True">
+                <CollectionView.GroupHeaderTemplate>
+                    <DataTemplate x:DataType="ns:BirthInformationGroup">
+                        <Label Text="{Binding GroupName}" />
+                    </DataTemplate>
+                </CollectionView.GroupHeaderTemplate>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="ns:BirthInformation">
+                        <Label Text="{Binding DisplayString}" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

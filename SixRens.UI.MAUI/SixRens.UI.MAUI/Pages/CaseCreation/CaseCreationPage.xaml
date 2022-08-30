@@ -4,50 +4,58 @@
              xmlns:ns="clr-namespace:SixRens.UI.MAUI.Pages.CaseCreation"
              xmlns:corepr="clr-namespace:SixRens.Core.插件管理.预设管理;assembly=SixRens.Core"
              x:Class="SixRens.UI.MAUI.Pages.CaseCreation.CaseCreationPage"
-             Title="CaseCreationPage" >
-    <VerticalStackLayout>
-        <HorizontalStackLayout>
-            <Label Text="选择时间" />
-            <Editor x:Name="selectedDateTimeLabel"
-               x:DataType="ns:ShowingDateTime" 
-               Text="{Binding DisplayString}" 
-                   IsReadOnly="True" >
-                <Editor.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="SelectDateTime"/>
-                </Editor.GestureRecognizers>
-            </Editor>
-        </HorizontalStackLayout>
-        
-        <HorizontalStackLayout>
-            <Label Text="自定昼夜" />
-            <Picker x:Name="dayNightPicker" />
-        </HorizontalStackLayout>
-
-        <HorizontalStackLayout>
-            <Label Text="自定月将" />
-            <Picker x:Name="theSunPicker" />
-        </HorizontalStackLayout>
-
-        <HorizontalStackLayout>
-            <Label Text="所用预设" />
-            <Picker
-                x:Name="presetPicker" 
-                x:DataType="corepr:预设"
-                ItemDisplayBinding="{Binding 预设名}" 
-                SelectedIndexChanged="PresetSelected" >
-            </Picker>
-        </HorizontalStackLayout>
-
+             Title="起课" >
+    <ScrollView>
         <VerticalStackLayout>
-            <Button Text="添加年命" Clicked="AddGenderAndBirth"/>
-            <CollectionView>    
-                
-            </CollectionView>
+            <HorizontalStackLayout>
+                <Label Text="选择时间" />
+                <Editor x:Name="selectedDateTimeEditor"
+                   x:DataType="ns:ShowingDateTime" 
+                   Text="{Binding DisplayString}" 
+                       IsReadOnly="True" >
+                    <Editor.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="SelectDateTime" />
+                    </Editor.GestureRecognizers>
+                </Editor>
+            </HorizontalStackLayout>
+        
+            <HorizontalStackLayout>
+                <Label Text="自定昼夜" />
+                <Picker x:Name="dayNightPicker" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout>
+                <Label Text="自定月将" />
+                <Picker x:Name="theSunPicker" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout>
+                <Label Text="配置年命" />
+                <Editor x:Name="selectedBirthInformationEditor"
+                   x:DataType="ns:ShowingBirthInformationList" 
+                   Text="{Binding DisplayString}" 
+                        AutoSize="TextChanges"
+                       IsReadOnly="True" >
+                    <Editor.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="SelectBirthInformation" />
+                    </Editor.GestureRecognizers>
+                </Editor>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout>
+                <Label Text="所用预设" />
+                <Picker
+                    x:Name="presetPicker" 
+                    x:DataType="corepr:预设"
+                    ItemDisplayBinding="{Binding 预设名}" 
+                    SelectedIndexChanged="PresetSelected" >
+                </Picker>
+            </HorizontalStackLayout>
+
+            <Button
+                Text="起课"
+                Clicked="CreateCase" />
+
         </VerticalStackLayout>
-
-        <Button
-            Text="起课"
-            Clicked="CreateCase" />
-
-    </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
