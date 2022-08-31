@@ -4,30 +4,14 @@
              xmlns:coreppm="clr-namespace:SixRens.Core.插件管理.插件包管理;assembly=SixRens.Core"
              x:Class="SixRens.UI.MAUI.Pages.PluginManagement.PluginManagementPage"
              Title="PluginManagementPage" >
-    <StackLayout>
-        <StackLayout>
+    <ScrollView>
+        <VerticalStackLayout>
             <Label Text="插件包" />
-            <CollectionView x:Name="packageCollectionView">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="coreppm:插件包">
-                        <Frame BindingContext="{Binding .}">
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="ShowPluginPackageDetails" />
-                            </Frame.GestureRecognizers>
-                            <Label Text="{Binding 名称}" ></Label>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-            <Frame>
-                <Button Text="导入新插件包" />
-            </Frame>
-        </StackLayout>
-        <Border />
-        
-        <Button 
-            Text="清除全部插件包" Clicked="ClearPackages"/>
-        <Button 
-            Text="清除全部预设"  Clicked="ClearPresets"/>
-    </StackLayout>
+            <Button Text="配置插件包" Clicked="OnManagePackagesClicked" />
+
+            <Label Text="暂时" />
+            <Button Text="清除全部插件包" Clicked="ClearPackages"/>
+            <Button Text="清除全部预设"  Clicked="ClearPresets"/>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

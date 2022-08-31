@@ -22,7 +22,10 @@ public partial class BirthInformationSelectionPage : ContentPage
     private readonly Action<SelectedBirthInformationList> applyBackAction;
     private readonly AppShell shell;
 
+    private readonly BirthInformationGroup ownerBinding;
+    private readonly BirthInformationGroup notOwnerBinding;
     public BirthInformationSelectionPage(
+        SelectedBirthInformationList current,
         Action<SelectedBirthInformationList> applyBackAction,
         AppShell shell)
     {
@@ -31,39 +34,38 @@ public partial class BirthInformationSelectionPage : ContentPage
 
         InitializeComponent();
 
-        var allBranches = Enumerable.Range(1, 12)
-            .Select(i => new EarthlyBranch(i).ToString("C"));
-
-        this.birthPicker.Items.AddOneByOne(allBranches);
-        this.agePicker.Items.AddOneByOne(allBranches.Prepend("自动"));
-
-        this.genderPicker.SelectedIndex = 1;
-        this.birthPicker.SelectedIndex = 0;
-        this.agePicker.SelectedIndex = 0;
-    }
-
-    private BirthInformationGroup ownerBinding;
-    private BirthInformationGroup notOwnerBinding;
-    internal void ApplySelectedBirthInformation(SelectedBirthInformationList current)
-    {
-        ownerBinding = new("课主");
-        notOwnerBinding = new("非课主");
-
-        if (current.PlateOwners is not null)
         {
-            ownerBinding.Add(current.PlateOwners);
-            this.asOwnerPicker.SelectedIndex = 1;
-        }
-        else
-        {
-            this.asOwnerPicker.SelectedIndex = 0;
-        }
-        notOwnerBinding.AddOneByOne(current.Others);
+            var allBranches = Enumerable.Range(1, 12)
+                .Select(i => new EarthlyBranch(i).ToString("C"));
 
-        this.collectionView.ItemsSource = new BirthInformationGroup[] {
-             ownerBinding,
-             notOwnerBinding
-        };
+            this.birthPicker.Items.AddOneByOne(allBranches);
+            this.agePicker.Items.AddOneByOne(allBranches.Prepend("自动"));
+
+            this.genderPicker.SelectedIndex = 1;
+            this.birthPicker.SelectedIndex = 0;
+            this.agePicker.SelectedIndex = 0;
+        }
+
+        {
+            ownerBinding = new("课主");
+            notOwnerBinding = new("非课主");
+
+            if (current.PlateOwners is not null)
+            {
+                ownerBinding.Add(current.PlateOwners);
+                this.asOwnerPicker.SelectedIndex = 1;
+            }
+            else
+            {
+                this.asOwnerPicker.SelectedIndex = 0;
+            }
+            notOwnerBinding.AddOneByOne(current.Others);
+
+            this.collectionView.ItemsSource = new BirthInformationGroup[] {
+                ownerBinding,
+                notOwnerBinding
+            };
+        }
     }
 
     private void AddItemClicked(object sender, EventArgs e)

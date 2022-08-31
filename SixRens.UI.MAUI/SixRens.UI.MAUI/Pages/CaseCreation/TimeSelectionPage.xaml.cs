@@ -20,6 +20,7 @@ public partial class TimeSelectionPage : ContentPage
     private readonly Action<SelectedDateTime> applyBackAction;
     private readonly AppShell shell;
     public TimeSelectionPage(
+        SelectedDateTime current,
         Action<SelectedDateTime> applyBackAction,
         AppShell shell)
     {
@@ -42,9 +43,11 @@ public partial class TimeSelectionPage : ContentPage
         this.monthBranchPicker.Items.AddOneByOne(allBranches);
         this.dateBranchPicker.Items.AddOneByOne(allBranches);
         this.timeBranchPicker.Items.AddOneByOne(allBranches);
+
+        ApplySelectedDateTime(current);
     }
 
-    internal void ApplySelectedDateTime(SelectedDateTime current)
+    private void ApplySelectedDateTime(SelectedDateTime current)
     {
         {
             DateTime currentWestern;

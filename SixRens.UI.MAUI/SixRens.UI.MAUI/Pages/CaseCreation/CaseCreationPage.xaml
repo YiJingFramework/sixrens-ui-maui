@@ -47,8 +47,7 @@
                 <Picker
                     x:Name="presetPicker" 
                     x:DataType="corepr:预设"
-                    ItemDisplayBinding="{Binding 预设名}" 
-                    SelectedIndexChanged="PresetSelected" >
+                    ItemDisplayBinding="{Binding 预设名}" >
                 </Picker>
             </HorizontalStackLayout>
 

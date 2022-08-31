@@ -79,11 +79,14 @@ namespace SixRens.UI.MAUI.Pages.CaseCreation
                 new ShowingBirthInformationList(informationList);
         }
 
-        // 给 ItemsSource 赋值时会导致选择 null ，故设一变量进行判断。
-        private bool isRefreshingPresets;
+        private void OnPresetSelected(object sender, EventArgs e)
+        {
+            preferenceManager.LastSelectedPreset = ((预设)presetPicker.SelectedItem).预设名;
+        }
+
         private void RefreshPresets()
         {
-            isRefreshingPresets = true;
+            presetPicker.SelectedIndexChanged -= OnPresetSelected;
 
             var presets = core.PresetManager.预设列表.ToArray();
             this.presetPicker.ItemsSource = presets;
@@ -93,11 +96,11 @@ namespace SixRens.UI.MAUI.Pages.CaseCreation
             if (selected is not null)
             {
                 this.presetPicker.SelectedItem = selected;
-                isRefreshingPresets = false;
+                presetPicker.SelectedIndexChanged += OnPresetSelected;
             }
             else
             {
-                isRefreshingPresets = false;
+                presetPicker.SelectedIndexChanged += OnPresetSelected;
                 if (presets.Length > 0)
                     this.presetPicker.SelectedItem = presets[0];
             }
@@ -182,32 +185,20 @@ namespace SixRens.UI.MAUI.Pages.CaseCreation
             }
         }
 
-        private TimeSelectionPage timeSelectionPage;
         private async void SelectDateTime(object sender, EventArgs e)
         {
-            if (timeSelectionPage is null)
-                timeSelectionPage = new TimeSelectionPage(this.SetDateTime, shell);
-
             var current = (ShowingDateTime)selectedDateTimeEditor.BindingContext;
-            timeSelectionPage.ApplySelectedDateTime(current.DateTime);
-            await this.shell.Navigation.PushAsync(timeSelectionPage);
+            var page = new TimeSelectionPage(current.DateTime, this.SetDateTime, shell);
+            await this.shell.Navigation.PushAsync(page);
         }
 
-        private void PresetSelected(object sender, EventArgs e)
-        {
-            if (!isRefreshingPresets)
-                preferenceManager.LastSelectedPreset = ((预设)presetPicker.SelectedItem).预设名;
-        }
-
-        private BirthInformationSelectionPage birthInformationSelectionPage;
         private async void SelectBirthInformation(object sender, EventArgs e)
         {
-            if (birthInformationSelectionPage is null)
-                birthInformationSelectionPage = new(this.SetBirthInformationList, shell);
-
             var current = (ShowingBirthInformationList)selectedBirthInformationEditor.BindingContext;
-            birthInformationSelectionPage.ApplySelectedBirthInformation(current.Information);
-            await this.shell.Navigation.PushAsync(birthInformationSelectionPage);
+
+            var page = new BirthInformationSelectionPage(
+                current.Information, this.SetBirthInformationList, shell);
+            await this.shell.Navigation.PushAsync(page);
         }
     }
 }
