@@ -21,7 +21,8 @@ namespace SixRens.UI.MAUI
             _ = builder.UseMauiApp<App>();
             _ = builder.ConfigureFonts(fonts => {
                 // _ = fonts.AddFont("HongLeiBanShu.ttf", "PrimaryFont");
-                _ = fonts.AddFont("STXINGKA.TTF", "PrimaryFont");
+                // _ = fonts.AddFont("STXINGKA.TTF", "PrimaryFont");
+                _ = fonts.AddFont("OpenSans-Regular.ttf", "PrimaryFont");
             });
 
             _ = builder.UseMauiCommunityToolkit();

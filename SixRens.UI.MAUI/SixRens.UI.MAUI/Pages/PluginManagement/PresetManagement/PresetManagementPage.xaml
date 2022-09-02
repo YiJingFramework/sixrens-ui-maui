@@ -7,7 +7,7 @@
     <ScrollView>
         <VerticalStackLayout>
             <Label Text="新建或导入预设" />
-            <Entry x:Name="presetNameEntry" Text="在这里输入预设名" />
+            <Entry x:Name="presetNameEntry" Placeholder="在这里输入预设名" />
             <Button Text="新建" Clicked="OnCreateNewPresetClicked" />
             <Button Text="导入" Clicked="OnImportPresetClicked" />
             <Label x:Name="messageLabel" />
