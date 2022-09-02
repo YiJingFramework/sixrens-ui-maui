@@ -7,7 +7,7 @@
     <Style TargetType="Button">
         <Setter Property="TextColor" Value="{StaticResource Gray}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
-        <Setter Property="FontFamily" Value="HongLei"/>
+        <Setter Property="FontFamily" Value="PrimaryFont"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="CornerRadius" Value="8"/>
         <Setter Property="Padding" Value="14,10"/>
@@ -21,14 +21,14 @@
     <Style TargetType="DatePicker">
         <Setter Property="TextColor" Value="{StaticResource Gray}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
-        <Setter Property="FontFamily" Value="HongLei"/>
+        <Setter Property="FontFamily" Value="PrimaryFont"/>
         <Setter Property="FontSize" Value="14"/>
     </Style>
 
     <Style TargetType="Editor">
         <Setter Property="TextColor" Value="{StaticResource Gray}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
-        <Setter Property="FontFamily" Value="HongLei"/>
+        <Setter Property="FontFamily" Value="PrimaryFont"/>
         <Setter Property="FontSize" Value="14" />
         <Setter Property="PlaceholderColor" Value="{StaticResource Gray}" />
     </Style>
@@ -36,7 +36,7 @@
     <Style TargetType="Entry">
         <Setter Property="TextColor" Value="{StaticResource Gray}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
-        <Setter Property="FontFamily" Value="HongLei"/>
+        <Setter Property="FontFamily" Value="PrimaryFont"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="PlaceholderColor" Value="{StaticResource Gray}" />
     </Style>
@@ -44,28 +44,28 @@
     <Style TargetType="Label">
         <Setter Property="TextColor" Value="{StaticResource Black}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
-        <Setter Property="FontFamily" Value="HongLei"/>
+        <Setter Property="FontFamily" Value="PrimaryFont"/>
         <Setter Property="FontSize" Value="14" />
     </Style>
 
     <Style TargetType="Picker">
         <Setter Property="TextColor" Value="{StaticResource Gray}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
-        <Setter Property="FontFamily" Value="HongLei"/>
+        <Setter Property="FontFamily" Value="PrimaryFont"/>
         <Setter Property="FontSize" Value="14" />
     </Style>
 
     <Style TargetType="RadioButton">
         <Setter Property="TextColor" Value="{StaticResource Gray}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
-        <Setter Property="FontFamily" Value="HongLei"/>
+        <Setter Property="FontFamily" Value="PrimaryFont"/>
         <Setter Property="FontSize" Value="14" />
     </Style>
 
     <Style TargetType="TimePicker">
         <Setter Property="TextColor" Value="{StaticResource Gray}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
-        <Setter Property="FontFamily" Value="HongLei"/>
+        <Setter Property="FontFamily" Value="PrimaryFont"/>
         <Setter Property="FontSize" Value="14" />
     </Style>
 

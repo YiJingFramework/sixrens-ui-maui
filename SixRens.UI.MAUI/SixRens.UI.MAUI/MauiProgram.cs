@@ -20,7 +20,8 @@ namespace SixRens.UI.MAUI
 
             _ = builder.UseMauiApp<App>();
             _ = builder.ConfigureFonts(fonts => {
-                _ = fonts.AddFont("HongLeiBanShu.ttf", "HongLei");
+                // _ = fonts.AddFont("HongLeiBanShu.ttf", "PrimaryFont");
+                _ = fonts.AddFont("STXINGKA.TTF", "PrimaryFont");
             });
 
             _ = builder.UseMauiCommunityToolkit();

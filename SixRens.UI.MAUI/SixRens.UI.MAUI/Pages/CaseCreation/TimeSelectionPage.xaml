@@ -14,8 +14,12 @@
                 </Picker.Items>
             </Picker>
             <VerticalStackLayout x:Name="layoutForMode1">
-                <DatePicker x:Name="datePicker" />
-                <TimePicker x:Name="timePicker" />
+                <DatePicker x:Name="datePicker"
+                            MinimumDate="01/01/0100"
+                            MaximumDate="12/31/9900" 
+                            Format="yyyy/MM/dd" />
+                <TimePicker x:Name="timePicker" 
+                            Format="HH:mm" />
                 <Button Text="确认" Clicked="OnCommitWithWesternClicked"/>
             </VerticalStackLayout>
             
