@@ -3,6 +3,7 @@ using Java.Lang;
 using Microsoft.Maui.Storage;
 using SixRens.Core.插件管理.插件包管理;
 using SixRens.UI.MAUI.Pages.PluginManagement.PackageManagement;
+using SixRens.UI.MAUI.Pages.PluginManagement.PresetManagement;
 using SixRens.UI.MAUI.Services.SixRens;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -49,6 +50,14 @@ namespace SixRens.UI.MAUI.Pages.PluginManagement
             if(packageManagementPage is null)
                 packageManagementPage = new(core, filePicker, shell);
             await shell.Navigation.PushAsync(packageManagementPage);
+        }
+
+        private PresetManagementPage presetManagementPage;
+        private async void OnManagePresetsClicked(object sender, EventArgs e)
+        {
+            if (presetManagementPage is null)
+                presetManagementPage = new(core, filePicker, shell);
+            await shell.Navigation.PushAsync(presetManagementPage);
         }
     }
 }

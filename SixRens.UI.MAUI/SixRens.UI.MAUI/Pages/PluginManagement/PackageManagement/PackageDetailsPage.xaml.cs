@@ -33,6 +33,10 @@ namespace SixRens.UI.MAUI.Pages.PluginManagement.PackageManagement
                 packageWebsiteLabel.Text = package.网址;
             }
             this.threeSubjectsPlugins.ItemsSource = package.三传插件;
+            this.heavenlyGeneralPlugins.ItemsSource = package.天将插件;
+            this.branchAuxiliaryPlugins.ItemsSource = package.神煞插件;
+            this.plateNamePlugins.ItemsSource = package.课体插件;
+            this.referencePlugins.ItemsSource = package.参考插件;
         }
 
         private async void OnDeleteClicked(object sender, EventArgs e)

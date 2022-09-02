@@ -3,13 +3,63 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:srapi="clr-namespace:SixRens.Api;assembly=SixRens.Api"
              x:Class="SixRens.UI.MAUI.Pages.PluginManagement.PackageManagement.PackageDetailsPage"
-             Title="PluginManagementPage" >
+             Title="插件包管理" >
     <ScrollView>
         <VerticalStackLayout>
             <Label x:Name="packageNameLabel" />
             <Label x:Name="packageWebsiteLabel" />
             <Button Text="移除插件包" Clicked="OnDeleteClicked" />
+
+            <Label Text="包含的三传插件" />
             <CollectionView x:Name="threeSubjectsPlugins" >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="srapi:I插件" >
+                        <HorizontalStackLayout>
+                            <Label Text="{Binding 插件名}" />
+                            <Label Text="{Binding 插件识别码}" />
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Text="包含的天将插件" />
+            <CollectionView x:Name="heavenlyGeneralPlugins" >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="srapi:I插件" >
+                        <HorizontalStackLayout>
+                            <Label Text="{Binding 插件名}" />
+                            <Label Text="{Binding 插件识别码}" />
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            
+            <Label Text="包含的神煞插件" />
+            <CollectionView x:Name="branchAuxiliaryPlugins" >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="srapi:I插件" >
+                        <HorizontalStackLayout>
+                            <Label Text="{Binding 插件名}" />
+                            <Label Text="{Binding 插件识别码}" />
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Text="包含的课体插件" />
+            <CollectionView x:Name="plateNamePlugins" >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="srapi:I插件" >
+                        <HorizontalStackLayout>
+                            <Label Text="{Binding 插件名}" />
+                            <Label Text="{Binding 插件识别码}" />
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            
+            <Label Text="包含的参考插件" />
+            <CollectionView x:Name="referencePlugins" >
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="srapi:I插件" >
                         <HorizontalStackLayout>

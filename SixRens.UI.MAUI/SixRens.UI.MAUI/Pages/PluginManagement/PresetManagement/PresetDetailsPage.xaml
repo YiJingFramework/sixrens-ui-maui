@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:srapi="clr-namespace:SixRens.Api;assembly=SixRens.Api"
+             x:Class="SixRens.UI.MAUI.Pages.PluginManagement.PresetManagement.PresetDetailsPage"
+             Title="预设管理" >
+    <ScrollView>
+        <VerticalStackLayout>
+            <Label x:Name="presetNameLabel" />
+            
+            <Button Text="配置三传插件" />
+            <Button Text="配置天将插件" />
+            <Button Text="配置神煞插件" />
+            <Button Text="配置课体插件" />
+            <Button Text="配置参考插件" />
+            
+            <Button Text="删除此预设" Clicked="OnDeleteClicked" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

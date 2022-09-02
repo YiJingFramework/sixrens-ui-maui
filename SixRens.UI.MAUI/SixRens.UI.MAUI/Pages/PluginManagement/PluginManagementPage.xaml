@@ -3,15 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:coreppm="clr-namespace:SixRens.Core.插件管理.插件包管理;assembly=SixRens.Core"
              x:Class="SixRens.UI.MAUI.Pages.PluginManagement.PluginManagementPage"
-             Title="PluginManagementPage" >
+             Title="插件" >
     <ScrollView>
         <VerticalStackLayout>
-            <Label Text="插件包" />
             <Button Text="配置插件包" Clicked="OnManagePackagesClicked" />
-
-            <Label Text="暂时" />
-            <Button Text="清除全部插件包" Clicked="ClearPackages"/>
-            <Button Text="清除全部预设"  Clicked="ClearPresets"/>
+            <Button Text="配置预设" Clicked="OnManagePresetsClicked" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
