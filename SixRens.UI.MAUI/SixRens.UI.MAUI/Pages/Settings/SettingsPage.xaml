@@ -5,7 +5,7 @@
              Title="设置" >
     <ScrollView>
         <VerticalStackLayout>
-            <Image Source="icon.png" />
+            <Image Source="application_icon.png" />
             <Label Text="六壬吾心" />
         </VerticalStackLayout>
     </ScrollView>
