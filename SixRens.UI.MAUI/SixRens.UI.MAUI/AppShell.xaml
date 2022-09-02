@@ -14,32 +14,32 @@
         
         <ShellContent
             Title="起课"
-            Icon="dotnet_bot.png"
+            Icon="icon_no_background.png"
             ContentTemplate="{DataTemplate new:CaseCreationPage}"
             Route="new" />
 
         <ShellContent
             Title="占例"
-            Icon="dotnet_bot.png"
+            Icon="icon_no_background.png"
             ContentTemplate="{DataTemplate cases:CaseManagementPage}"
             Route="cases" />
 
         <ShellContent
             x:Name="mainPage"
             Title="盘面"
-            Icon="dotnet_bot.png"
+            Icon="icon_no_background.png"
             ContentTemplate="{DataTemplate main:MainPage}"
             Route="main" />
 
         <ShellContent
             Title="插件"
-            Icon="dotnet_bot.png"
+            Icon="icon_no_background.png"
             ContentTemplate="{DataTemplate plugins:PluginManagementPage}"
             Route="plugins" />
 
         <ShellContent
             Title="设置"
-            Icon="dotnet_bot.png"
+            Icon="icon_no_background.png"
             ContentTemplate="{DataTemplate settings:SettingsPage}"
             Route="settings" />
         

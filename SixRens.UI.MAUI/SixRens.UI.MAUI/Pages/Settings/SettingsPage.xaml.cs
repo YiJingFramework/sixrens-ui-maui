@@ -3,15 +3,10 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace SixRens.UI.MAUI.Pages.Settings;
 
-public partial class SettingsPage : ContentPage, IQueryAttributable
+public partial class SettingsPage : ContentPage
 {
     public SettingsPage()
     {
         InitializeComponent();
-    }
-
-    public void ApplyQueryAttributes(IDictionary<string, object> query)
-    {
-        label.Text = query.GetValueOrDefault("text", "") as string;
     }
 }

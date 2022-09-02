@@ -33,14 +33,13 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\app_icon.svg" ForegroundScale="0.65" Color="#f2ecde"/>
+		<MauiIcon Include="Resources\AppIcon\app_icon.svg" ForegroundScale="0.65" Color="#f2ecde" />
 
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#f2ecde" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -50,7 +49,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\AppIcon\appiconfg.svg" />
+	  <None Remove="Resources\Images\icon_no_background.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
