@@ -6,7 +6,8 @@
     <ScrollView>
         <VerticalStackLayout>
             <Image Source="application_icon.png" />
-            <Label Text="六壬吾心" />
+            <Label Text="六壬吾心 SixRens.UI.MAUI" />
+            <Button Text="点击访问我们的仓库" Clicked="ViewRepositoryClicked" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
