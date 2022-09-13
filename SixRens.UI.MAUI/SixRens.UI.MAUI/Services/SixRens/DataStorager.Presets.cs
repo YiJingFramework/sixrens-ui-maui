@@ -16,31 +16,35 @@ namespace SixRens.UI.MAUI.Services.SixRens
             var result = database.GetCollection<Preset>("presets");
             return result;
         }
-        public IEnumerable<(string 预设名, string 内容)> 获取所有预设文件()
+        public ValueTask<IEnumerable<(string 预设名, string 内容)>> 获取所有预设文件()
         {
-            var collection = GetPresetCollection();
-            foreach (var preset in collection.FindAll())
+            IEnumerable<(string 预设名, string 内容)> SyncMethod()
             {
-                if (!preset.Deleted)
-                    yield return (preset.Id, preset.Content);
+                var collection = GetPresetCollection();
+                foreach (var preset in collection.FindAll())
+                {
+                    if (!preset.Deleted)
+                        yield return (preset.Id, preset.Content);
+                }
             }
+            return ValueTask.FromResult(SyncMethod());
         }
 
-        public bool 新建预设文件(string 预设名)
+        public ValueTask<bool> 新建预设文件(string 预设名)
         {
             var collection = GetPresetCollection();
             var preset = collection.FindById(预设名);
             if (preset is not null)
-                return preset.Deleted;
+                return ValueTask.FromResult(preset.Deleted);
             var id = collection.Insert(new Preset() {
                 Id = 预设名,
                 Content = string.Empty,
                 Deleted = true
             });
-            return id is not null;
+            return ValueTask.FromResult(id is not null);
         }
 
-        public void 储存预设文件(string 预设名, string 内容)
+        public ValueTask 储存预设文件(string 预设名, string 内容)
         {
             var collection = GetPresetCollection();
             _ = collection.Update(new Preset() {
@@ -48,14 +52,16 @@ namespace SixRens.UI.MAUI.Services.SixRens
                 Content = 内容,
                 Deleted = false
             });
+            return ValueTask.CompletedTask;
         }
 
-        public void 移除预设文件(string 预设名)
+        public ValueTask 移除预设文件(string 预设名)
         {
             var collection = GetPresetCollection();
             var preset = collection.FindById(预设名);
             preset.Deleted = true;
             _ = collection.Update(preset);
+            return ValueTask.CompletedTask;
         }
     }
 }

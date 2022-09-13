@@ -15,12 +15,12 @@ namespace SixRens.UI.MAUI.Pages.PluginManagement.PresetManagement
     {
         private readonly SixRensCore core;
         private readonly 预设 preset;
-        private readonly Action<预设> deleteAction;
+        private readonly Func<预设, ValueTask> deleteAction;
         private readonly AppShell shell;
         public PresetDetailsPage(
             SixRensCore core,
             预设 preset,
-            Action<预设> deleteAction,
+            Func<预设, ValueTask> deleteAction,
             AppShell shell)
         {
             this.core = core;
@@ -35,7 +35,7 @@ namespace SixRens.UI.MAUI.Pages.PluginManagement.PresetManagement
 
         private async void OnDeleteClicked(object sender, EventArgs e)
         {
-            deleteAction(preset);
+            await deleteAction(preset);
             _ = await shell.Navigation.PopAsync();
         }
     }

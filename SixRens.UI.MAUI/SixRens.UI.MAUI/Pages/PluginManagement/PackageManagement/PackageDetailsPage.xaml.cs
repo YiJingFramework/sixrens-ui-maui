@@ -13,9 +13,9 @@ namespace SixRens.UI.MAUI.Pages.PluginManagement.PackageManagement
     public partial class PackageDetailsPage : ContentPage
     {
         private readonly 插件包 package;
-        private readonly Action<插件包> deleteAction;
+        private readonly Func<插件包, ValueTask> deleteAction;
         private readonly AppShell shell;
-        public PackageDetailsPage(插件包 package, Action<插件包> deleteAction, AppShell shell)
+        public PackageDetailsPage(插件包 package, Func<插件包, ValueTask> deleteAction, AppShell shell)
         {
             this.package = package;
             this.deleteAction = deleteAction;
@@ -41,7 +41,7 @@ namespace SixRens.UI.MAUI.Pages.PluginManagement.PackageManagement
 
         private async void OnDeleteClicked(object sender, EventArgs e)
         {
-            deleteAction(package);
+            await deleteAction(package);
             _ = await shell.Navigation.PopAsync();
         }
     }

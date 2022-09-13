@@ -1,4 +1,5 @@
-﻿using LiteDB;
+﻿using Javax.Security.Auth;
+using LiteDB;
 using SixRens.Core.插件管理.插件包管理;
 
 namespace SixRens.UI.MAUI.Services.SixRens
@@ -10,7 +11,7 @@ namespace SixRens.UI.MAUI.Services.SixRens
         {
             return database.GetStorage<string>("plugin_packages", "plugin_packages_chunks");
         }
-        public string 储存插件包文件(Stream 插件包)
+        public ValueTask<string> 储存插件包文件(Stream 插件包)
         {
             var storage = GetPluginPackageStorage();
             for (; ; )
@@ -19,34 +20,39 @@ namespace SixRens.UI.MAUI.Services.SixRens
                 if (storage.FindById(id) is not null)
                     continue;
                 _ = storage.Upload(id, $"{id}.srspg", 插件包);
-                return id;
+                return ValueTask.FromResult(id);
             }
         }
 
-        public void 移除插件包文件(string 插件包本地识别码)
+        public ValueTask 移除插件包文件(string 插件包本地识别码)
         {
             var storage = GetPluginPackageStorage();
             _ = storage.SetMetadata(插件包本地识别码, new BsonDocument() {
                 [packageDeletedKey] = true
             });
+            return ValueTask.CompletedTask;
         }
 
-        public IEnumerable<(string 插件包本地识别码, Stream 插件包)> 获取所有插件包文件()
+        public ValueTask<IEnumerable<(string 插件包本地识别码, Stream 插件包)>> 获取所有插件包文件()
         {
-            var storage = GetPluginPackageStorage();
-            foreach (var file in storage.FindAll())
+            IEnumerable<(string 插件包本地识别码, Stream 插件包)> SyncMethod()
             {
-                if (file.Metadata.TryGetValue(packageDeletedKey, out var deleted) &&
-                    deleted.AsBoolean is true)
-                    continue;
-                yield return (file.Id, file.OpenRead());
+                var storage = GetPluginPackageStorage();
+                foreach (var file in storage.FindAll())
+                {
+                    if (file.Metadata.TryGetValue(packageDeletedKey, out var deleted) &&
+                        deleted.AsBoolean is true)
+                        continue;
+                    yield return (file.Id, file.OpenRead());
+                }
             }
+            return ValueTask.FromResult(SyncMethod());
         }
 
-        public Stream 获取插件包文件(string 插件包本地识别码)
+        public ValueTask<Stream> 获取插件包文件(string 插件包本地识别码)
         {
             var storage = GetPluginPackageStorage();
-            return storage.FindById(插件包本地识别码)?.OpenRead();
+            return ValueTask.FromResult((Stream)storage.FindById(插件包本地识别码)?.OpenRead());
         }
     }
 }

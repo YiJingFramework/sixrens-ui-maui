@@ -49,7 +49,7 @@ namespace SixRens.UI.MAUI.Pages.PluginManagement.PackageManagement
                 try
                 {
                     using var stream = await fileResult.OpenReadAsync();
-                    var (p, d) = core.PluginPackageManager.从外部加载插件包(stream);
+                    var (p, d) = await core.PluginPackageManager.从外部加载插件包(stream);
                     if(d)
                     {
                         p.Dispose();

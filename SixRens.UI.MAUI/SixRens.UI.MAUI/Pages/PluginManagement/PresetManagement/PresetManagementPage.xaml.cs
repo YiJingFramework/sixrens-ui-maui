@@ -96,7 +96,7 @@ namespace SixRens.UI.MAUI.Pages.PluginManagement.PresetManagement
 
                 try
                 {
-                    result = core.PresetManager.导入预设文件内容(name, fileContent);
+                    result = await core.PresetManager.导入预设文件内容(name, fileContent);
                 }
                 catch (Exception ex)
                 {
@@ -114,7 +114,7 @@ namespace SixRens.UI.MAUI.Pages.PluginManagement.PresetManagement
             this.SyncWithCore();
         }
 
-        private void OnCreateNewPresetClicked(object sender, EventArgs e)
+        private async void OnCreateNewPresetClicked(object sender, EventArgs e)
         {
             var givenName = presetNameEntry.Text;
             if(string.IsNullOrWhiteSpace(givenName))
@@ -123,7 +123,7 @@ namespace SixRens.UI.MAUI.Pages.PluginManagement.PresetManagement
             var name = givenName;
             for (; ; )
             {
-                if (core.PresetManager.新增预设(name) is not null)
+                if (await core.PresetManager.新增预设(name) is not null)
                     break;
                 name = $"{givenName}{Guid.NewGuid():N}";
             }

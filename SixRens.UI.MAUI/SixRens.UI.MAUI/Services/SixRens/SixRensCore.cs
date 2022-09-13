@@ -18,8 +18,7 @@ namespace SixRens.UI.MAUI.Services.SixRens
         {
             using var s = await fileSystem.OpenAppPackageFileAsync("SixRens.DefaultPlugins-1.14.1.srspg");
 
-            var (package, hasInstalled) = await Task.Factory.StartNew(
-                () => PluginPackageManager.从外部加载插件包(s));
+            var (package, hasInstalled) = await PluginPackageManager.从外部加载插件包(s);
 
             if (hasInstalled)
             {
@@ -39,7 +38,7 @@ namespace SixRens.UI.MAUI.Services.SixRens
             }
             for (var name = "默认预设"; ;)
             {
-                var p = PresetManager.导入预设文件内容(name, content);
+                var p = await PresetManager.导入预设文件内容(name, content);
                 if (p is not null)
                     return;
 
@@ -58,8 +57,8 @@ namespace SixRens.UI.MAUI.Services.SixRens
             storager = new DataStorager(pathProvider);
             try
             {
-                PluginPackageManager = new(storager);
-                PresetManager = new(storager);
+                PluginPackageManager = 插件包管理器.创建插件包管理器(storager).AsTask().Result;
+                PresetManager = 预设管理器.创建预设管理器(storager).AsTask().Result;
                 CaseManager = new(storager);
             }
             catch (Exception e)
